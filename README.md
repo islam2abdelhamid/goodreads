@@ -23,7 +23,7 @@
 
 <br>
 
-## To use post
+## To use postman
 
 - Open your postman
 - from the top left menu choose file then import or press Ctrl + O
