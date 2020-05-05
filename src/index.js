@@ -23,6 +23,10 @@ app.post('/categories', userAuth, async (req, res) => {
   res.send(category);
 });
 
+app.get('/', (req, res) =>
+  res.send('<h1>Welcome To Good Reads Amazing App</h1>')
+);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const err = new Error('Not Found');
@@ -30,9 +34,7 @@ app.use(function (req, res, next) {
   next(err);
 });
 
-app.get('/', (req, res) =>
-  res.send('<h1>Welcome To Good Reads Amazing App</h1>')
-);
+
 app.listen(keys.port, () =>
   console.log(
     `listening on http://${keys.host}:${keys.port} Ctrl+click to open the server`
