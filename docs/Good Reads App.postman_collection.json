@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "59b89eae-de70-4cc4-a15c-3de769fb8121",
+		"name": "Good Reads App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "063f7d66-90c2-41ae-afa4-1122836b2091",
+								"exec": [
+									"if(pm.response.code === 201){",
+									"    pm.environment.set(\"authToken\", pm.response.json().token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\":\"Islam\",\n\t\"lastName\":\"Abdelhamid\",\n\t\"email\":\"isla2dsdsds@gmail.com\",\n\t\"password\":\"123456\",\n\t\"passwordConfirmation\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e8fc3d03-6daf-4c2e-a55a-bd69b9c801a5",
+								"exec": [
+									"if(pm.response.code === 200){",
+									"    pm.environment.set(\"authToken\", pm.response.json().token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"isla2dsds@gmail.com\",\n\t\"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload avatar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/home/islam-dev/Desktop/2564962_073e_3.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/users/profile/avatar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"profile",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "books",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "create category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "authors",
+			"item": [],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ca7b0a92-12dc-400c-9d5c-1cbab83402db",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2ccbece6-b02c-4355-ab62-04f30f6ad98a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

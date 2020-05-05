@@ -30,3 +30,10 @@ exports.login = async (req, res) => {
     res.status(401).send({ message: error.message });
   }
 };
+
+exports.uploadAvatar = async (req, res) => {
+  const user = req.user;
+  user.avatar = '/uploads/users/images/' + req.file.filename;
+  await user.save();
+  res.send();
+};
