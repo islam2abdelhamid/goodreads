@@ -2,9 +2,12 @@ const express = require('express');
 
 const keys = require('./config/keys');
 const usersRouter = require('./routes/users');
+const booksRouter = require('./routes/books');
+
 const userAuth = require('./middleware/userAuth');
 
 const Category = require('./models/Category');
+
 require('./config/db');
 
 const app = express();
@@ -14,6 +17,8 @@ app.use(express.json());
 
 // routes
 app.use('/users', usersRouter);
+
+app.use('/books',booksRouter)
 
 // example of using authentication
 

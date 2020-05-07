@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
-const authorSchema = new mongoose.Schema(
+const bookSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -33,6 +32,6 @@ const authorSchema = new mongoose.Schema(
   }
 );
 
-const Author = mongoose.model('Author', authorSchema);
+const Book = mongoose.model('Book', bookSchema);
 
-module.exports = Author;
+module.exports = Book;
