@@ -130,5 +130,3 @@ userSchema.pre('save', async function (next) {
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;
-
-// user => [email, firstName, lastName, password, avatar, readList, toReadList, readingList, reviews, isAdmin]

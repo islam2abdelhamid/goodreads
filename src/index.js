@@ -8,6 +8,7 @@ const authorsRouter = require('./routes/authors');
 const userAuth = require('./middleware/userAuth');
 
 const Category = require('./models/Category');
+
 require('./config/db');
 
 const app = express();
