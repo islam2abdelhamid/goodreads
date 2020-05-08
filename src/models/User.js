@@ -55,6 +55,16 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    books: [{
+      bookId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Book'
+      },
+      status: Number // 0 => [reading] , [1] => [read] , 2 => [want to read] //
+    }],
+    reviews: [{
+      reviewId: mongoose.Schema.Types.ObjectId, 
+    }],
     tokens: [
       {
         token: {

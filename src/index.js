@@ -2,6 +2,9 @@ const express = require('express');
 
 const keys = require('./config/keys');
 const usersRouter = require('./routes/users');
+const booksRouter = require('./routes/books');
+const categoriesRouter = require('./routes/categories');
+const authorsRouter = require('./routes/authors');
 const userAuth = require('./middleware/userAuth');
 
 const Category = require('./models/Category');
@@ -14,14 +17,10 @@ app.use(express.json());
 
 // routes
 app.use('/users', usersRouter);
+app.use('/books', booksRouter);
+app.use('/authors', authorsRouter);
+app.use('/categories', categoriesRouter);
 
-// example of using authentication
-
-app.post('/categories', userAuth, async (req, res) => {
-  const category = new Category({ name: 'new cat' });
-  await category.save();
-  res.send(category);
-});
 
 app.get('/', (req, res) =>
   res.send('<h1>Welcome To Good Reads Amazing App</h1>')
