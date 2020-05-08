@@ -15,9 +15,8 @@
 - `git clone git@github.com:islam2abdelhamid/goodreads.git`
 - `cd goodreads`
 - `npm install`
-- `cd src`
 - `cp .env.example .env`
-- `nodemon index.js`
+- `npm start`
 
 #### And by now you should have the application running.
 
