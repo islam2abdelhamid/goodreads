@@ -31,6 +31,20 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.logout = async (req, res) => {
+  const user = req.user;
+  user.tokens = user.tokens.filter((token) => req.token != token.token);
+  await user.save();
+  res.send();
+};
+
+exports.logoutAll = async (req, res) => {
+  const user = req.user;
+  user.tokens = [];
+  await user.save();
+  res.send();
+};
+
 exports.uploadAvatar = async (req, res) => {
   const user = req.user;
   user.avatar = '/uploads/users/images/' + req.file.filename;

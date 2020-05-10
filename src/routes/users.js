@@ -9,6 +9,8 @@ const router = new Router();
 
 router.post('/register', userController.register);
 router.post('/login', userController.login);
+router.post('/logout', userAuth, userController.logout);
+router.post('/logout_all', userAuth, userController.logoutAll);
 
 const upload = imageUploader('uploads/users/images');
 
@@ -23,4 +25,3 @@ router.post(
 );
 
 module.exports = router;
-   
