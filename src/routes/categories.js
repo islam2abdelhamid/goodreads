@@ -14,6 +14,29 @@ router.get('', userAuth, async (req, res, next)=>{
         next(error)
     }
 });
+
+//Get Popular Categories
+router.get('/top_categories', (req, res, next)=>{
+    try {
+        Category.find({}).populate('books').limit(5).exec(function(err, docs) {
+            docs.sort(function compare(a, b){
+                let c = 0;    
+                if (a.books.rate > b.books.rate) {
+                     c = 1;
+                } else if (b.books.rate > a.books.rate) {
+                     c = -1;
+                }    
+                return c;
+            });
+            // return or response with docs
+            if (err) return res.send(err);
+            res.status(200).json(docs);
+        });   
+    } catch (error) {
+        next(error);
+    }   
+});
+
 router.get('/:id', userAuth, async (req, res, next)=>{
     try {
         cat = await Category.findById(req.params.id);
@@ -40,28 +63,6 @@ router.delete('/:id', adminAuth, async (req, res, next)=>{
         await Category.findByIdAndDelete(req.params.id);
         res.status(200).send("category has been deleted successfully");
         next();     
-    } catch (error) {
-        next(error);
-    }   
-});
-
-//Get Popular Categories
-router.get('/top_categories', (req, res, next)=>{
-    try {
-        Category.find({}).populate('books').limit(5).exec(function(err, docs) {
-            docs.sort(function compare(a, b){
-                let c = 0;    
-                if (a.books.rate > b.books.rate) {
-                     c = 1;
-                } else if (b.books.rate > a.books.rate) {
-                     c = -1;
-                }    
-                return c;
-            });
-            // return or response with docs
-            if (err) return res.send(err);
-            res.status(200).json(docs);
-        });   
     } catch (error) {
         next(error);
     }   

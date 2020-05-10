@@ -17,6 +17,16 @@ router.get('', userAuth, async (req, res, next)=>{
     }
 });
 
+//Get Popular Books
+router.get('/top_books', async (req, res, next)=>{
+    try {
+        book = await Book.find({}).sort({rate: -1}).limit(5);
+        res.status(200).json(book);
+    } catch (error) {
+        next(error)
+    }
+});
+
 router.get('/:id', userAuth, async (req, res, next)=>{
     try {
         book = await Book.findById(req.params.id);
@@ -98,16 +108,6 @@ router.patch('/:id/change-status', userAuth, async (req, res, next)=>{
             doc.save();
         })
         res.status(200).send("book status has been changed successfully");
-    } catch (error) {
-        next(error)
-    }
-});
-
-// Find Top Rated Books //
-router.get('/top_books', async (req, res, next)=>{
-    try {
-        book = await Book.find({}).sort({rate: -1}).limit(5);
-        res.status(200).json(book);
     } catch (error) {
         next(error)
     }
