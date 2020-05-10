@@ -103,4 +103,14 @@ router.patch('/:id/change-status', userAuth, async (req, res, next)=>{
     }
 });
 
+// Find Top Rated Books //
+router.get('/top_books', async (req, res, next)=>{
+    try {
+        book = await Book.find({}).sort({rate: -1}).limit(5);
+        res.status(200).json(book);
+    } catch (error) {
+        next(error)
+    }
+});
+
 module.exports = router;
