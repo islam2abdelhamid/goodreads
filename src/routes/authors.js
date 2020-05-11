@@ -8,7 +8,14 @@ const router = new Router();
 
 router.get('', userAuth, async (req, res, next)=>{
     try {
-        author = await Author.find({});
+        const pagination = req.query.pagination
+        ? parseInt(req.query.pagination)
+        : 15;
+        const page = req.query.page ? parseInt(req.query.page) :1;
+
+        author = await Author.find({})
+        .skip((page-1) * pagination)
+        .limit(pagination).populate('books');
         res.status(200).json(author);
     } catch (error) {
         next(error)
@@ -40,7 +47,8 @@ router.get('/top_authors', (req, res, next)=>{
 router.get('/:id', userAuth, async (req, res, next)=>{
     try {
         author = await Author.findById(req.params.id);
-        res.status(200).json(author);
+        res.status(200).json(author)
+        .populate('books');
     } catch (error) {
         next(error)
     }

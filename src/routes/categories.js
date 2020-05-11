@@ -8,7 +8,15 @@ const router = new Router();
 
 router.get('', userAuth, async (req, res, next)=>{
     try {
-        cat = await Category.find({});
+        const pagination = req.query.pagination
+        ? parseInt(req.query.pagination)
+        : 15;
+        
+        const page = req.query.page ? parseInt(req.query.page) :1;
+        cat = await Category.find({})
+        .skip((page-1) * pagination)
+        .limit(pagination).populate('books');
+      
         res.status(200).json(cat);
     } catch (error) {
         next(error)
@@ -39,8 +47,8 @@ router.get('/top_categories', (req, res, next)=>{
 
 router.get('/:id', userAuth, async (req, res, next)=>{
     try {
-        cat = await Category.findById(req.params.id);
-        res.status(200).json(cat);
+        cat = await Category.findById(req.params.id) .populate('books');
+        res.status(200).json(cat) ;
     } catch (error) {
         next(error)
     }

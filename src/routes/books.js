@@ -10,7 +10,16 @@ const router = new Router();
 // Normal CRUD operations //
 router.get('', userAuth, async (req, res, next)=>{
     try {
-        book = await Book.find({});
+        const pagination = req.query.pagination
+        ? parseInt(req.query.pagination)
+        : 15;
+        const page = req.query.page ? parseInt(req.query.page) :1;
+        book = await Book.find({}) 
+        .skip((page-1) * pagination)
+        .limit(pagination)
+        .populate('category')
+        .populate('author')
+        .populate('reviews');
         res.status(200).json(book);
     } catch (error) {
         next(error)
@@ -29,7 +38,9 @@ router.get('/top_books', async (req, res, next)=>{
 
 router.get('/:id', userAuth, async (req, res, next)=>{
     try {
-        book = await Book.findById(req.params.id);
+        book = await Book.findById(req.params.id)
+        .populate('category')
+        .populate('author');
         res.status(200).json(book);
     } catch (error) {
         next(error)
