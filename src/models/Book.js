@@ -64,11 +64,11 @@ bookSchema.post('save', async function () {
 });
 
 // bookSchema.methods.rate = async function (user, rate, comment) {
-//   // if (rate > 5 || rate < 0) throw Error('invalid rate value');
-//   // const book = this;
-//   // if(book.)
-//   // try {
-//   // }
+//   if (rate > 5 || rate < 0) throw Error('invalid rate value');
+//   const book = this;
+//   if(book.)
+//   try {
+//   }
 // };
 
 const Book = mongoose.model('Book', bookSchema);
