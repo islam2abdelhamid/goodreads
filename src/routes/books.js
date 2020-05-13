@@ -1,8 +1,8 @@
 const { Router } = require('express');
 
-const Book = require('../models/Book');
+const {Book} = require('../models/Book');
 const User = require('../models/User');
-const Review = require('../models/Review');
+const {Review} = require('../models/Book');
 const userAuth = require('../middleware/userAuth');
 const adminAuth = require('../middleware/adminAuth');
 

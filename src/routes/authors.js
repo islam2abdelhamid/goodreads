@@ -39,7 +39,7 @@ router.get('/top_authors', (req, res, next) => {
           return c;
         });
         // return or response with docs
-        if (err) return res.send(err);
+        if (err) return res.status(500).send(err);
         res.status(200).json(docs);
       });
   } catch (error) {

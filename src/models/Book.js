@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Category = require('./Category');
 const Author = require('./Author');
-const Review = require('./Review');
 
 const bookSchema = new mongoose.Schema(
   {
@@ -21,6 +20,7 @@ const bookSchema = new mongoose.Schema(
       ref: 'Author',
       required: true,
     },
+    rate: Number,
     cover: {
       type: String,
       required: false,
@@ -53,6 +53,51 @@ bookSchema.methods.getReviews = async function () {
   return reviews;
 };
 
+const reviewSchema = new mongoose.Schema(
+  {
+    rate: {
+      type: Number,
+      validate(value) {
+        if (value < 0 || value > 5) throw new Error('invalid rate value');
+      },
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    bookId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Book',
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+reviewSchema.post('save', async function () {
+  const review = this;
+  try {
+    const book = await Book.findById(review.bookId);
+
+    const reviews = await book.getReviews();
+    const totalRate = reviews.reduce((a, b) => a + (b['rate'] || 0), 0);
+    book.rate = totalRate;
+    await book.save();
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const Review = mongoose.model('Review', reviewSchema);
+
 const Book = mongoose.model('Book', bookSchema);
 
-module.exports = Book;
+module.exports = { Book: Book, Review: Review };

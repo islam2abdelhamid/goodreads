@@ -99,8 +99,8 @@ userSchema.methods.generateAuthToken = async function () {
     {
       _id: user._id.toString(),
     },
-    keys.jwtKey,
-    { expiresIn: '1h' }
+    keys.jwtKey
+    //, { expiresIn: '1h' }
   );
   user.tokens = user.tokens.concat({
     token,
