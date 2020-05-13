@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Category = require('./Category');
 const Author = require('./Author');
+const Review = require('./Review');
 
 const bookSchema = new mongoose.Schema(
   {
@@ -25,23 +26,6 @@ const bookSchema = new mongoose.Schema(
       required: false,
       trim: true,
     },
-    rate: {
-      type: mongoose.Decimal128,
-      required: false,
-    },
-    reviews: [
-      {
-        rate: Number,
-        comment: String,
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
-        },
-      },
-      {
-        timestamps: true,
-      },
-    ],
   },
   {
     timestamps: true,
@@ -63,13 +47,11 @@ bookSchema.post('save', async function () {
   }
 });
 
-// bookSchema.methods.rate = async function (user, rate, comment) {
-//   if (rate > 5 || rate < 0) throw Error('invalid rate value');
-//   const book = this;
-//   if(book.)
-//   try {
-//   }
-// };
+bookSchema.methods.getReviews = async function () {
+  const book = this;
+  const reviews = await Review.find({ bookId: book._id });
+  return reviews;
+};
 
 const Book = mongoose.model('Book', bookSchema);
 

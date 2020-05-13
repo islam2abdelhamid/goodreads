@@ -55,16 +55,15 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    books: [{
-      bookId: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Book'
+    books: [
+      {
+        bookId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Book',
+        },
+        status: Number, // 0 => [reading] , [1] => [read] , 2 => [want to read] //
       },
-      status: Number // 0 => [reading] , [1] => [read] , 2 => [want to read] //
-    }],
-    reviews: [{
-      reviewId: mongoose.Schema.Types.ObjectId, 
-    }],
+    ],
     tokens: [
       {
         token: {
@@ -100,7 +99,8 @@ userSchema.methods.generateAuthToken = async function () {
     {
       _id: user._id.toString(),
     },
-    keys.jwtKey
+    keys.jwtKey,
+    { expiresIn: '1h' }
   );
   user.tokens = user.tokens.concat({
     token,
@@ -130,4 +130,3 @@ userSchema.pre('save', async function (next) {
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;
-
