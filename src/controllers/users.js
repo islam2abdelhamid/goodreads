@@ -51,3 +51,8 @@ exports.uploadAvatar = async (req, res) => {
   await user.save();
   res.send();
 };
+
+exports.profile = (req, res) => {
+  const user = req.user;
+  res.send(user);
+};
