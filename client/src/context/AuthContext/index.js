@@ -5,7 +5,11 @@ import useAsyncReducer from '../../hocs/useAsyncReducer';
 export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
-  const [state, dispatch] = useAsyncReducer(reducer, {});
+  const [state, dispatch] = useAsyncReducer(reducer, {
+    user: null,
+    isLogged: false,
+    isLoaded:false
+  });
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
       {props.children}

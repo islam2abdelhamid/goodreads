@@ -25,17 +25,14 @@ const reducer = (state, action) => {
   return new Promise((resolve) => {
     switch (action.type) {
       case actions.LOGIN:
-        localStorage.setItem(
-          'goodReadsToken',
-          JSON.stringify(action.payload.token)
-        );
-        return resolve(action.payload);
-
+        localStorage.setItem('goodReadsToken', action.payload.token);
+        resolve({ user: action.payload, isLogged: true, isLoaded: true });
+        break;
       case actions.CHECK_AUTH:
-        console.log('check auth');
         const token = localStorage.getItem('goodReadsToken');
         if (!token) {
-          return state;
+          resolve({ user: null, isLogged: false, isLoaded: true });
+          break;
         }
         axios
           .get('/users/profile', {
@@ -44,14 +41,20 @@ const reducer = (state, action) => {
             },
           })
           .then((result) => {
-            resolve(result);
+            resolve({ user: result.data, isLogged: true, isLoaded: true });
+          })
+          .catch((err) => {
+            console.log(err);
+            // localStorage.removeItem('goodReadsToken');
+            resolve({ user: null, isLogged: false, isLoaded: true });
           });
-        return;
+        break;
       case actions.LOGOUT:
-        return resolve({});
-
+        localStorage.removeItem('goodReadsToken');
+        resolve({ user: null, isLogged: false, isLoaded: true });
+        break;
       default:
-        return resolve(state);
+        return state;
     }
   });
 };

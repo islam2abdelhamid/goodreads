@@ -1,13 +1,13 @@
 import React from 'react';
-import App from './App';
-import LoginContextProvider from './context/AuthContext';
+import App from './components/App';
+import AuthContextProvider from './context/AuthContext';
 
-const App = () => {
+const Root = () => {
   return (
-    <LoginContextProvider>
+    <AuthContextProvider>
       <App />
-    </LoginContextProvider>
+    </AuthContextProvider>
   );
 };
 
-export default App;
+export default Root;

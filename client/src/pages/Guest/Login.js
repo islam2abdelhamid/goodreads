@@ -1,18 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
+import axios from '../../axios';
+import { Redirect } from 'react-router-dom';
 
-import axios from './../../axios';
 import { AuthContext } from '../../context/AuthContext';
 import { LOGIN, LOGOUT } from '../../context/AuthContext/actionTypes';
+import requireGuest from '../../hocs/requireGuest';
 
 const Login = (props) => {
   const context = useContext(AuthContext);
-
-  useEffect(() => {
-  }, []);
-
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -34,14 +33,17 @@ const Login = (props) => {
           type: LOGIN,
           payload: result.data,
         });
+        setRedirect(true);
       })
       .catch((err) => {
-        setErrors(errors.concat(err.response.data.message));
+        if (err.response) setErrors(errors.concat(err.response.data.message));
+        else console.log(err);
       });
   };
   return (
     <div className='sign section--bg' data-bg='img/section/section.jpg'>
       <div className='container'>
+        {redirect && <Redirect to='/' />}
         <div className='row'>
           <div className='col-12'>
             <div className='sign__content'>
@@ -96,4 +98,4 @@ const Login = (props) => {
     </div>
   );
 };
-export default Login;
+export default requireGuest(Login);
