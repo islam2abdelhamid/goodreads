@@ -25,6 +25,7 @@ const reducer = (state, action) => {
   return new Promise((resolve) => {
     switch (action.type) {
       case actions.LOGIN:
+      case actions.REGISTER:
         localStorage.setItem('goodReadsToken', action.payload.token);
         resolve({ user: action.payload, isLogged: true, isLoaded: true });
         break;

@@ -89,7 +89,7 @@ reviewSchema.post('save', async function () {
 
     const reviews = await book.getReviews();
     const totalRate = reviews.reduce((a, b) => a + (b['rate'] || 0), 0);
-    book.rate = totalRate;
+    book.rate = (totalRate / reviews.length).toFixed(1);
     await book.save();
   } catch (error) {
     throw new Error(error);

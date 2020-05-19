@@ -1,20 +1,35 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import axios from '../../axios';
 import { Redirect, Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
-import { LOGIN, LOGOUT } from '../../context/AuthContext/actionTypes';
+import { LOGIN, REGISTER } from '../../context/AuthContext/actionTypes';
 import requireGuest from '../../hocs/requireGuest';
 
-const Login = (props) => {
+const Register = (props) => {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState([]);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const fileInput = useRef(null);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setPasswordConfirmation(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -24,13 +39,16 @@ const Login = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('users/login', {
+      .post('users/register', {
         email,
         password,
+        firstName,
+        lastName,
+        passwordConfirmation
       })
       .then((result) => {
         context.dispatch({
-          type: LOGIN,
+          type: REGISTER,
           payload: result.data,
         });
         setRedirect(true);
@@ -54,6 +72,27 @@ const Login = (props) => {
 
                 <div className='sign__group'>
                   <input
+                    type='text'
+                    className='sign__input'
+                    placeholder='First Name'
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                    required
+                  />
+                </div>
+
+                <div className='sign__group'>
+                  <input
+                    type='text'
+                    className='sign__input'
+                    placeholder='Last Name'
+                    value={lastName}
+                    onChange={handleLastNameChange}
+                    required
+                  />
+                </div>
+                <div className='sign__group'>
+                  <input
                     type='email'
                     className='sign__input'
                     placeholder='Email'
@@ -73,6 +112,20 @@ const Login = (props) => {
                     required
                   />
                 </div>
+                <div className='sign__group'>
+                  <input
+                    type='password'
+                    className='sign__input'
+                    placeholder='Confirm Password'
+                    value={passwordConfirmation}
+                    onChange={handleConfirmPasswordChange}
+                    required
+                  />
+                </div>
+                <div className='sign__group'>
+                  <input ref={fileInput} type='file' className='sign__input' />
+                </div>
+
                 {errors.length > 0 && (
                   <ul>
                     {errors.map((error) => (
@@ -88,7 +141,7 @@ const Login = (props) => {
                 </button>
 
                 <span className='sign__text'>
-                  Don't have an account? <Link to='/register'>Sign up!</Link>
+                  You already have an account? <Link to='/login'>Login!</Link>
                 </span>
               </form>
             </div>
@@ -98,4 +151,4 @@ const Login = (props) => {
     </div>
   );
 };
-export default requireGuest(Login);
+export default requireGuest(Register);
