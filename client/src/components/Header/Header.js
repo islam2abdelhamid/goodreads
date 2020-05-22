@@ -18,6 +18,13 @@ export const Header = ({ isLogged }) => {
                     <NavLink className='header__nav-link' to='/'>
                       Home
                     </NavLink>
+                
+                  </li>
+                  <li className='header__nav-item'>
+                    <NavLink className='header__nav-link' to='/Books'>
+                    Books
+                    </NavLink>
+                
                   </li>
                 </ul>
                 <div className='header__auth'>

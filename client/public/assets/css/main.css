@@ -3200,6 +3200,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .sign {
   display: block;
   position: relative;
+  padding-top:100px;
 }
 .sign__content {
   display: flex;
