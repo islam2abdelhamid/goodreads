@@ -17,8 +17,8 @@ router.get('/', userAuth, async (req, res, next) => {
     const page = req.query.page ? parseInt(req.query.page) : 1;
     books = await Book.find({})
       .skip((page - 1) * pagination)
-      .limit(pagination);
-    // .populate('category')
+      .limit(pagination)
+     .populate('category');
     // .populate('author')
     // .populate('reviews');
     res.status(200).json(books);
@@ -30,7 +30,7 @@ router.get('/', userAuth, async (req, res, next) => {
 //Get Popular Books
 router.get('/top_books', async (req, res, next) => {
   try {
-    book = await Book.find({}).sort({ rate: -1 }).limit(5);
+    book = await Book.find({}).sort({ rate: -1 }).limit(5).populate('category');
     res.status(200).json(book);
   } catch (error) {
     next(error);
