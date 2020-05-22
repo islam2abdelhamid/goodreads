@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 
-const imageUploader = (imagePath) => {
+const imageUploader = imagePath => {
   const fileStorage = multer.diskStorage({
     destination: (req, file, callback) => {
       var appDir = path.dirname(require.main.filename);
@@ -21,7 +21,7 @@ const imageUploader = (imagePath) => {
   return multer({
     storage: fileStorage,
     limits: {
-      fileSize: 1000000,
+      fileSize: 3e+6,
     },
     fileFilter(req, file, cb) {
       if (!file.originalname.match(/\.(jpg|jpeg|png)$/))

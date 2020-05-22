@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 3,
       validate(value) {
         if (!validator.isAlpha(value))
           throw new Error('first name should contains only letters');
@@ -31,7 +30,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 3,
       validate(value) {
         if (!validator.isAlpha(value))
           throw new Error('last name should contains only letters');
@@ -76,7 +74,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.statics.isEmailExist = async (email) => {
+userSchema.statics.isEmailExist = async email => {
   const emailExists = await User.findOne({ email });
   return emailExists;
 };

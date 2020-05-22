@@ -1,74 +1,99 @@
-import React, { useContext, useState, useRef } from 'react';
-import axios from '../../axios';
-import { Redirect, Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import axiosGuest from '../../axios/guest';
+import axiosLogged from '../../axios/logged';
+import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
-import { LOGIN, REGISTER } from '../../context/AuthContext/actionTypes';
+import { REGISTER } from '../../context/AuthContext/actionTypes';
 import requireGuest from '../../hocs/requireGuest';
 
-const Register = (props) => {
+const Register = props => {
   const context = useContext(AuthContext);
+
   const [errors, setErrors] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [redirect, setRedirect] = useState(false);
-  const fileInput = useRef(null);
+  const [avatarInput, setAvatarInput] = useState(null);
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = e => {
     setEmail(e.target.value);
   };
-  const handleFirstNameChange = (e) => {
+  const handleFirstNameChange = e => {
     setFirstName(e.target.value);
   };
 
-  const handleLastNameChange = (e) => {
+  const handleLastNameChange = e => {
     setLastName(e.target.value);
   };
 
-  const handleConfirmPasswordChange = (e) => {
+  const handleConfirmPasswordChange = e => {
     setPasswordConfirmation(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = e => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleAvatarChange = e => {
+    setAvatarInput(e.target.files[0]);
+  };
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    axios
-      .post('users/register', {
+
+    if (avatarInput) {
+      if (
+        !['image/gif', 'image/jpeg', 'image/png'].includes(avatarInput.type)
+      ) {
+        setErrors(['image is not valid ']);
+        return;
+      } else if (avatarInput.size > 3e6) {
+        setErrors(['image is too large']);
+        return;
+      }
+    }
+
+    try {
+      const registerResult = await axiosGuest.post('users/register', {
         email,
         password,
         firstName,
         lastName,
-        passwordConfirmation
-      })
-      .then((result) => {
-        context.dispatch({
-          type: REGISTER,
-          payload: result.data,
-        });
-        setRedirect(true);
-      })
-      .catch((err) => {
-        if (err.response) setErrors(errors.concat(err.response.data.message));
-        else console.log(err);
+        passwordConfirmation,
       });
+
+      context.dispatch({
+        type: REGISTER,
+        payload: registerResult.data,
+      });
+
+      if (avatarInput) {
+        const formData = new FormData();
+        formData.append('avatar', avatarInput);
+        await axiosLogged.post('users/profile/avatar', formData, {
+          'content-type': 'multipart/form-data',
+        });
+      }
+    } catch (error) {
+      const errors = error.response.data.message.split(
+        'user validation failed:'
+      );
+      setErrors(errors[1].split(','));
+    }
   };
   return (
     <div className='sign section--bg' data-bg='img/section/section.jpg'>
       <div className='container'>
-        {redirect && <Redirect to='/' />}
         <div className='row'>
           <div className='col-12'>
             <div className='sign__content'>
               <form action='#' className='sign__form' onSubmit={handleSubmit}>
-                <a href='index.html' className='header__logo logo'>
+                <Link to='/' className='header__logo logo'>
                   Book<span>Flix</span>
-                </a>
+                </Link>
 
                 <div className='sign__group'>
                   <input
@@ -123,13 +148,17 @@ const Register = (props) => {
                   />
                 </div>
                 <div className='sign__group'>
-                  <input ref={fileInput} type='file' className='sign__input' />
+                  <input
+                    type='file'
+                    className='sign__input'
+                    onChange={handleAvatarChange}
+                  />
                 </div>
 
                 {errors.length > 0 && (
                   <ul>
-                    {errors.map((error) => (
-                      <li className='text-theme' key='error'>
+                    {errors.map(error => (
+                      <li className='text-theme' key={error}>
                         {error}
                       </li>
                     ))}
@@ -137,7 +166,7 @@ const Register = (props) => {
                 )}
 
                 <button className='sign__btn' type='submit'>
-                  Sign in
+                  Sing Up
                 </button>
 
                 <span className='sign__text'>

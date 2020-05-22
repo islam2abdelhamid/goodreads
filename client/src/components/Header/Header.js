@@ -9,9 +9,10 @@ export const Header = ({ isLogged }) => {
           <div className='row'>
             <div className='col-12'>
               <div className='header__content'>
-                <a href='index.html' className='header__logo logo'>
+                <Link to='/' className='header__logo logo'>
                   Book<span>Flix</span>
-                </a>
+                </Link>
+
                 <ul className='header__nav'>
                   <li className='header__nav-item'>
                     <NavLink className='header__nav-link' to='/'>

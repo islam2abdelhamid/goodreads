@@ -1,28 +1,8 @@
 import * as actions from './actionTypes';
-import axios from '../../axios';
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case actions.LOGIN:
-//       localStorage.setItem(
-//         'goodReadsToken',
-//         JSON.stringify(action.payload.token)
-//       );
-//       return action.payload;
-
-//     case actions.LOGOUT:
-//       return {
-//         user: null,
-//         isLogged: false,
-//         isAdmin: false,
-//       };
-
-//     default:
-//       return state;
-//   }
-// };
+import axiosLogged from '../../axios/logged';
 
 const reducer = (state, action) => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     switch (action.type) {
       case actions.LOGIN:
       case actions.REGISTER:
@@ -35,24 +15,27 @@ const reducer = (state, action) => {
           resolve({ user: null, isLogged: false, isLoaded: true });
           break;
         }
-        axios
-          .get('/users/profile', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((result) => {
+        axiosLogged
+          .get('/users/profile')
+          .then(result => {
             resolve({ user: result.data, isLogged: true, isLoaded: true });
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
-            // localStorage.removeItem('goodReadsToken');
             resolve({ user: null, isLogged: false, isLoaded: true });
           });
         break;
       case actions.LOGOUT:
-        localStorage.removeItem('goodReadsToken');
-        resolve({ user: null, isLogged: false, isLoaded: true });
+        axiosLogged
+          .get('/users/logout')
+          .then(result => {
+            resolve({ user: null, isLogged: false, isLoaded: true });
+            localStorage.removeItem('goodReadsToken');
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
         break;
       default:
         return state;

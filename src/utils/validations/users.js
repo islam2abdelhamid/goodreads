@@ -5,10 +5,7 @@ const User = require('../../models/User');
 const schema = Joi.object({
   firstName: Joi.string().min(3).max(30).required(),
   lastName: Joi.string().min(3).max(30).required(),
-  password: Joi.string()
-    .min(6)
-    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-    .required(),
+  password: Joi.string().min(6).required(),
   passwordConfirmation: Joi.string()
     .required()
     .valid(Joi.ref('password'))
