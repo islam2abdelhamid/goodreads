@@ -34,7 +34,7 @@ function Books() {
 
           <div className='col-12'>
             {books.length > 0 && (
-              <OwlCarousel className='owl-theme' loop margin={10} items={4} nav>
+              <OwlCarousel className='owl-theme' margin={10} items={4} nav>
                 {books.map(item => (
                   <div className='item' key={item._id}>
                     <div className='card card--big'>
