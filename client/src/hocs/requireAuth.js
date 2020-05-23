@@ -12,7 +12,7 @@ export default ChildComponent => {
         )}
 
         {context.state.isLoaded && context.state.isLogged && (
-          <ChildComponent user={context.state.user} />
+          <ChildComponent user={context.state.user} {...props} />
         )}
       </>
     );

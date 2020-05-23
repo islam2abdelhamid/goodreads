@@ -11,7 +11,7 @@ export default ChildComponent => {
           <Redirect to='/home' />
         )}
         {context.state.isLoaded && !context.state.isLogged && (
-          <ChildComponent />
+          <ChildComponent  {...props} />
         )}
       </>
     );
