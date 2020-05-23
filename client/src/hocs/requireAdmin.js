@@ -1,15 +1,19 @@
 import React, { useContext } from 'react';
 import { AuthContext } from './../context/AuthContext';
-export default (ChildComponent) => {
-  const AdminGuard = (props) => {
+import { Redirect } from 'react-router-dom';
+export default ChildComponent => {
+  const AdminGuard = props => {
     const context = useContext(AuthContext);
 
-    if (context.state.isLoaded && context.state.user.isAdmin === false) {
-      props.history.push('/');
-    }
     return (
       <>
-        <ChildComponent />
+        {context.state.isLoaded && !context.state.isAdmin && (
+          <Redirect to='/' />
+        )}
+
+        {context.state.isLoaded && context.state.isLogged && (
+          <ChildComponent user={context.state.user} />
+        )}
       </>
     );
   };
