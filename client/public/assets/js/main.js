@@ -57,10 +57,10 @@ $(document).ready(function () {
   });
 
   $('.home__carousel').owlCarousel({
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: false,
     dots: false,
-    loop: true,
+    loop: false,
     autoplay: false,
     smartSpeed: 600,
     margin: 30,
@@ -479,7 +479,7 @@ $(document).ready(function () {
           max: 5,
         },
         connect: [true, false],
-        step: .1,
+        step: 0.1,
         start: 0,
         format: wNumb({
           decimals: 1,
