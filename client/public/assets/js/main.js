@@ -39,7 +39,7 @@ $(document).ready(function () {
     touchDrag: false,
     items: 1,
     dots: false,
-    loop: true,
+    loop: false,
     autoplay: false,
     smartSpeed: 600,
     margin: 0,
