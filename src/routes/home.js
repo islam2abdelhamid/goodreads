@@ -11,16 +11,37 @@ router.get('', userAuth, async (req, res, next) => {
   try {
     user = req.user;
     allBooks = user.books;
+    res.status(200).json(allBooks);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/reading-books', userAuth, async (req, res, next) => {
+  try {
+    user = req.user;
     readingBooks = user.books.filter((b) => b.status == 0);
-    readBooks = user.books.filter((b) => b.status == 1);
+    res.status(200).json(readingBooks);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/read-books', userAuth, async (req, res, next) => {
+  try {
+    user = req.user;
+    readBooks = user.books.filter((b) => b.status == 1);    
+    res.status(200).json(readBooks);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/want-to-read', userAuth, async (req, res, next) => {
+  try {
+    user = req.user;
     wantReadBooks = user.books.filter((b) => b.status == 2);
-    books = {
-      allBooks: allBooks,
-      readingBooks: readingBooks,
-      readBooks: readBooks,
-      wantReadBooks: wantReadBooks,
-    };
-    res.status(200).json(books);
+    res.status(200).json(wantReadBooks);
   } catch (error) {
     next(error);
   }
