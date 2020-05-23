@@ -56,39 +56,7 @@ $(document).ready(function () {
     }
   });
 
-  $('.home__carousel').owlCarousel({
-    mouseDrag: true,
-    touchDrag: false,
-    dots: false,
-    loop: false,
-    autoplay: false,
-    smartSpeed: 600,
-    margin: 30,
-    responsive: {
-      0: {
-        items: 2,
-      },
-      576: {
-        items: 2,
-      },
-      768: {
-        items: 3,
-      },
-      992: {
-        items: 4,
-      },
-      1200: {
-        items: 4,
-      },
-    },
-  });
-
-  $('.home__nav--next').on('click', function () {
-    $('.home__carousel, .home__bg').trigger('next.owl.carousel');
-  });
-  $('.home__nav--prev').on('click', function () {
-    $('.home__carousel, .home__bg').trigger('prev.owl.carousel');
-  });
+  var delay = 1000; // generate the delay somehow as you need
 
   $(window).on('resize', function () {
     var itemHeight = $('.home__bg').height();
