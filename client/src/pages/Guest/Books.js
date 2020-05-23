@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import axios from "../../axios";
+import React, { useEffect, useState } from 'react';
+import axios from '../../axios';
+import requireGuest from '../../hocs/requireGuest';
 
 function Books() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/books/top_books", {
+      .get('http://localhost:5000/books/top_books', {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("goodReadsToken"),
+          Authorization: 'Bearer ' + localStorage.getItem('goodReadsToken'),
         },
       })
 
@@ -16,7 +17,8 @@ function Books() {
         setBooks(res.data);
         console.log(res.data);
       });
-  }, [setBooks]);
+  }, []);
+  
 
   return (
     <section class="home">
@@ -45,8 +47,15 @@ function Books() {
         </div>
           ))}
         </div>
+<<<<<<< HEAD
        </div>
        </section>
   )}
+=======
+      </div>
+    </section>
+  );
+}
+>>>>>>> 77e1ae9b505c3496847c5e900d9b6947002486cf
 
-export default Books;
+export default requireGuest(Books);

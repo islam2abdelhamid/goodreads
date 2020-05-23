@@ -27,7 +27,7 @@ const reducer = (state, action) => {
         break;
       case actions.LOGOUT:
         axiosLogged
-          .get('/users/logout')
+          .post('/users/logout')
           .then(result => {
             resolve({ user: null, isLogged: false, isLoaded: true });
             localStorage.removeItem('goodReadsToken');
