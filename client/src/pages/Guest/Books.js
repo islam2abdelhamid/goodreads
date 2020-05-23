@@ -15,41 +15,29 @@ function Books() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/books/top_books', {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('goodReadsToken'),
-        },
-      })
+      .get('http://localhost:5000/books/top_books')
 
       .then(res => {
-        setBooks(res.data);
+        setBooks(books.concat(res.data));
       });
   }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/categories/top_categories', {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('goodReadsToken'),
-        },
-      })
+      .get('http://localhost:5000/categories/top_categories')
 
       .then(res => {
-        setCategories(res.data);
+        setCategories(categories.concat(res.data));
       });
   }, []);
 
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/authors/top_authors', {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('goodReadsToken'),
-        },
-      })
+      .get('http://localhost:5000/authors/top_authors')
 
       .then(res => {
-        setAuthors(res.data);
+        setAuthors(authors.concat(res.data));
       });
   }, []);
 
