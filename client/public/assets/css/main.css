@@ -3219,7 +3219,6 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
   padding: 40px 20px;
   position: relative;
 }
@@ -3779,5 +3778,5 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 }
 
 .text-theme {
-  color: #f15972;
+  color:#f15972;
 }
