@@ -25,7 +25,9 @@ const App = () => {
       <BrowserRouter>
         <Header
           isLogged={context.state.isLogged}
+          isLoaded={context.state.isLoaded}
           isAdmin={context.state.isLogged && context.state.user.isAdmin}
+          user={context.state.isLogged && context.state.user}
         />
         <Switch>
           <Route path='/' exact component={GuestHome} />

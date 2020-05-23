@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import axiosGuest from '../../axios/guest';
-import axiosLogged from '../../axios/logged';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
@@ -68,7 +67,6 @@ const Register = props => {
         passwordConfirmation,
       });
 
-      console.log(registerResult);
       if (avatarInput) {
         const formData = new FormData();
         formData.append('avatar', avatarInput);
@@ -87,11 +85,7 @@ const Register = props => {
       });
     } catch (error) {
       setIsLoading(false);
-
-      const errors = error.response.data.message.split(
-        'user validation failed:'
-      );
-      setErrors(errors[1].split(','));
+      setErrors([error.response.data.message]);
     }
   };
   return (

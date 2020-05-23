@@ -7,7 +7,8 @@ const reducer = (state, action) => {
       case actions.LOGIN:
       case actions.REGISTER:
         localStorage.setItem('goodReadsToken', action.payload.token);
-        resolve({ user: action.payload, isLogged: true, isLoaded: true });
+        
+        resolve({ user: action.payload.user, isLogged: true, isLoaded: true });
         break;
       case actions.CHECK_AUTH:
         const token = localStorage.getItem('goodReadsToken');

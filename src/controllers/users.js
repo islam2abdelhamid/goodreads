@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
   const user = req.user;
-  user.tokens = user.tokens.filter((token) => req.token != token.token);
+  user.tokens = user.tokens.filter(token => req.token != token.token);
   await user.save();
   res.send();
 };
@@ -54,5 +54,7 @@ exports.uploadAvatar = async (req, res) => {
 
 exports.profile = (req, res) => {
   const user = req.user;
+  delete user.books;
+  delete user.reviews;
   res.send(user);
 };

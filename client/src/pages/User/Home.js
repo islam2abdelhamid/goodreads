@@ -39,7 +39,6 @@ const Home = props => {
                       role='navigation'
                       id='filter-genre'
                       data-toggle='dropdown'
-                      aria-haspopup='true'
                       aria-expanded='false'
                     >
                       <input type='button' value='All Book' />
@@ -107,7 +106,6 @@ const Home = props => {
                             role='navigation'
                             id='filter-quality'
                             data-toggle='dropdown'
-                            aria-haspopup='true'
                             aria-expanded='false'
                           >
                             <input type='button' value='Reading' />

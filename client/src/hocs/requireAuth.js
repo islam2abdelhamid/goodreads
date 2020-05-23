@@ -1,14 +1,20 @@
 import React, { useContext } from 'react';
 import { AuthContext } from './../context/AuthContext';
+import { Redirect } from 'react-router-dom';
 export default ChildComponent => {
   const AuthGuard = props => {
     const context = useContext(AuthContext);
 
-    if (context.state.isLoaded && context.state.isLogged === false) {
-      props.history.push('/');
-    }
     return (
-      <>{context.state.user && <ChildComponent user={context.state.user} />}</>
+      <>
+        {context.state.isLoaded && !context.state.isLogged && (
+          <Redirect to='/' />
+        )}
+
+        {context.state.isLoaded && context.state.isLogged && (
+          <ChildComponent user={context.state.user} />
+        )}
+      </>
     );
   };
 

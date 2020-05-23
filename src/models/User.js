@@ -21,29 +21,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      validate(value) {
-        if (!validator.isAlpha(value))
-          throw new Error('first name should contains only letters');
-      },
     },
     lastName: {
       type: String,
       required: true,
       trim: true,
-      validate(value) {
-        if (!validator.isAlpha(value))
-          throw new Error('last name should contains only letters');
-      },
     },
     password: {
       type: String,
       required: true,
       trim: true,
       minlength: 6,
-      validate(value) {
-        if (value.includes('password'))
-          throw new Error('password cannot contain word password');
-      },
     },
     avatar: {
       type: String,

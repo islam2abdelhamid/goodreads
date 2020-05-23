@@ -13,7 +13,7 @@ router.post('/login', userController.login);
 router.post('/logout', userAuth, userController.logout);
 router.post('/logout_all', userAuth, userController.logoutAll);
 
-const upload = imageUploader('uploads/users/images');
+const upload = imageUploader('public/uploads/users/images');
 
 router.post(
   '/profile/avatar',

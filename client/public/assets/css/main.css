@@ -456,6 +456,7 @@ ul {
 .header__search-btn {
   color: rgba(255, 255, 255, 0.75);
   font-size: 26px;
+  margin-right: 50px;
 }
 .header__search-btn:hover,
 .header__search-btn.active {
@@ -3200,7 +3201,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .sign {
   display: block;
   position: relative;
-  padding-top:100px;
+  padding-top: 100px;
 }
 .sign__content {
   display: flex;
@@ -3778,5 +3779,18 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 }
 
 .text-theme {
-  color:#f15972;
+  color: #f15972;
+}
+
+.dropdown-toggle::after {
+  color: #fff;
+}
+.user_name {
+  font-weight: bold;
+  color: #fff;
+  margin-left: 15px;
+}
+
+.nav-item {
+  cursor: pointer;
 }
