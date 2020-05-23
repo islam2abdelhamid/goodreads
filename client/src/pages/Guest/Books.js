@@ -32,7 +32,7 @@ function Books() {
             </h1>
           </div>
 
-          <div className='col-12'>
+          <div className='col-12 mt-5'>
             {books.length > 0 && (
               <OwlCarousel className='owl-theme' margin={10} items={4} nav>
                 {books.map(item => (
@@ -52,7 +52,9 @@ function Books() {
                           </a>
                         </h3>
                         <span className='card__category'>
-                          <a href='#'>{item.category.name}</a>
+                          {item.category && (
+                            <a href='#'>{item.category.name}</a>
+                          )}
                         </span>
                         <span className='card__rate'>
                           <i className='icon ion-ios-star'></i>8.4
