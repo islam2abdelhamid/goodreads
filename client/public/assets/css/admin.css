@@ -1,0 +1,19 @@
+.pink-text{
+    color:#ff5860;
+}
+
+.fa{
+    color: #f6a0c8 !important;
+    font-size: 1.5rem !important;
+}
+
+.fa:hover{
+    color:#fd424b !important;
+    cursor: pointer;
+}
+
+.table__img{
+    width: 150px;
+    height: 150px;
+    max-width: unset;
+}

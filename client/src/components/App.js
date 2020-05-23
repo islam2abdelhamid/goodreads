@@ -24,7 +24,7 @@ const App = (props) => {
     <>
       
       <BrowserRouter>
-      <Header isLogged={context.state.isLogged}/>
+      <Header isLogged={context.state.isLogged} isAdmin={context.state.isLogged && context.state.user.isAdmin}/>
         <Switch>
           <Route path='/' exact component={GuestHome} />
           <Route path='/home' exact component={UserHome} />
@@ -32,7 +32,7 @@ const App = (props) => {
           <Route path='/register' exact component={Register} />
           <Route path='/logout' exact component={Logout} />
           <Route path='/Books' exact component={Books}/>
-          <Route path='/admin' exact component={AdminHome}/>
+          <Route path='/admin' component={AdminHome}/>
         </Switch>
       </BrowserRouter>
     </>

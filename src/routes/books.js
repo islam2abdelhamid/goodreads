@@ -18,8 +18,14 @@ router.get('/', userAuth, async (req, res, next) => {
     books = await Book.find({})
       .skip((page - 1) * pagination)
       .limit(pagination)
-     .populate('category');
-    // .populate('author')
+      .populate({
+        path: 'category',
+        select:'name -_id'
+      })
+      .populate({
+        path: 'author',
+        select:'firstName + lastName -_id'
+      })
     // .populate('reviews');
     res.status(200).json(books);
   } catch (error) {

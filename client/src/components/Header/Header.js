@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-export const Header = ({ isLogged }) => {
+export const Header = ({ isLogged, isAdmin }) => {
   return (
     <header className='header'>
       <div className='header__wrap'>
@@ -20,6 +20,12 @@ export const Header = ({ isLogged }) => {
                     </NavLink>
                 
                   </li>
+                  {isAdmin && (<li className='header__nav-item'>
+                    <NavLink className='header__nav-link' to='/Admin'>
+                    Admin Panel
+                    </NavLink>
+                
+                  </li>)}
                   <li className='header__nav-item'>
                     <NavLink className='header__nav-link' to='/Books'>
                     Books
