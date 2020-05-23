@@ -24,8 +24,7 @@ function Books() {
     <section class="home">
     <div class="col-12">
     <div class="owl-carousel home__carousel">
-    {books.map((item)=>(
-        <div class="item">
+    {books.map((item)=>{return(<div class="item">
          
             <div class="card card--big">
                 <div class="card__cover">
@@ -44,18 +43,10 @@ function Books() {
                 </div>
             </div>
           
+        </div>)})}
         </div>
-          ))}
-        </div>
-<<<<<<< HEAD
        </div>
        </section>
   )}
-=======
-      </div>
-    </section>
-  );
-}
->>>>>>> 77e1ae9b505c3496847c5e900d9b6947002486cf
 
 export default requireGuest(Books);
