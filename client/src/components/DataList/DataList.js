@@ -16,8 +16,38 @@ const DataList = (props) => {
     const handleChangeListing = (e) => {
         // console.log(e.target.value + " hihihi " + e.target.id)
         window.location.replace(`http://localhost:5001/${e.target.value}`);
+    }
+    const handleChangeStatus = async (e) => {
+        if (e.target.value == 1) {
+            // console.log(1)
+            try {
+                console.log('http://localhost:5000/books/'+e.target.id+'/change-status')
+                const response = await axios.patch('http://localhost:5000/books/'+e.target.id+'/change-status', { 'status': 1 });
+                window.location.replace(`http://localhost:5001/reading-books`);
+            } catch (e) {
+                console.log(`😱 Axios request failed: ${e}`);
+            }
+        }
+        else if (e.target.value == 2) {
+            // console.log(2)
+            try {
+                const response = await axios.patch('http://localhost:5000/books/'+e.target.id+'/change-status', { 'status': 2 });
+                window.location.replace(`http://localhost:5001/read-books`);
+            } catch (e) {
+                console.log(`😱 Axios request failed: ${e}`);
+            }
+        }
 
+        else if (e.target.value == 3) {
+            // console.log(3)
+            try {
+                const response = await axios.patch('http://localhost:5000/books/'+e.target.id+'/change-status', { 'status': 3 });
+                window.location.replace(`http://localhost:5001/want-to-read`);
+            } catch (e) {
+                console.log(`😱 Axios request failed: ${e}`);
+            }
 
+        }
     }
 
     return (
@@ -71,10 +101,7 @@ const DataList = (props) => {
                                             <option value="reading-books">Currently Reading</option>
                                             <option value="read-books">Read</option>
                                             <option value="want-to-read">Want To Read</option>
-                                            {/* 
-                                            <option value="1">Currently Reading</option>
-                                            <option value="2">Read</option>
-                                            <option value="3">Want To Read</option> */}
+
                                         </select>
 
 
@@ -136,14 +163,16 @@ const DataList = (props) => {
                                             <span></span>
                                         </div>
 
-                                        <ul
-                                            className='filter__item-menu dropdown-menu scrollbar-dropdown'
-                                            aria-labelledby='filter-genre'
-                                        >
-                                            <li>Read</li>
-                                            <li>Currently Reading</li>
-                                            <li>Want To Read</li>
-                                        </ul>
+                                        <select class="form-control" onChange={handleChangeStatus} id={book.book._id}>
+                                            <optgroup label="Select Status">
+
+                                            <option></option>
+                                            <option value="1">Currently Reading</option>
+                                                <option value="2">Read</option>
+                                                <option value="3">Want To Read</option>
+                                                </optgroup>
+
+                                        </select>
                                     </div>
                                 </div>
 
