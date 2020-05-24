@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import defaultAvatar from './default.png';
 export const Header = ({ isAdmin, isLoaded, user }) => {
+
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleSearchInput = e => {
+    setSearchInput(e.target.value);
+  };
+
+  function handleClick(e) {    
+    e.preventDefault();    
+    window.location.assign('/search/?q='+searchInput);
+    // console.log('The link was clicked.'); 
+   }
+
   return (
     <header className='header'>
       <div className='header__wrap'>
@@ -98,9 +111,10 @@ export const Header = ({ isAdmin, isLoaded, user }) => {
               <div className='header__search-content'>
                 <input
                   type='text'
-                  placeholder='Search for a movie, TV Series that you are looking for'
+                  placeholder="Search for a book using book's name or book's author"
+                  onChange={handleSearchInput}
                 />
-                <button type='button'>search</button>
+                <button type='button' onClick={handleClick}>search</button>
               </div>
             </div>
           </div>

@@ -3,15 +3,32 @@ const { Router } = require('express');
 const adminAuth = require('../middleware/adminAuth');
 const userAuth = require('../middleware/userAuth');
 const Author = require('../models/Author');
-const {Book} = require('../models/Book');
+const { Book } = require('../models/Book');
 
 const router = new Router();
 
 router.get('', userAuth, async (req, res, next) => {
   try {
+    
     user = req.user;
-    allBooks = user.books;
-    res.status(200).json(allBooks);
+    
+    allBooksIDs = await user.books.map((b) => b.bookId);
+    getBooks = await Book.find({ "_id": { "$in": allBooksIDs } }).populate('author').sort();
+
+    allUserBooks = await req.user.books.sort((a, b) => (a.bookId > b.bookId) ? 1 : -1)
+  
+
+    books = []
+    function getBooksWithStatus(getBooks,allUserBooks) {
+      for (var i = 0; i < getBooks.length; i++) {
+        books.push( {book:getBooks[i],status:allUserBooks[i].status});
+        }
+    }
+
+    getBooksWithStatus(getBooks,allUserBooks);
+    // console.log(newBooks);
+
+    res.status(200).json(books);
   } catch (error) {
     next(error);
   }
@@ -30,7 +47,7 @@ router.get('/reading-books', userAuth, async (req, res, next) => {
 router.get('/read-books', userAuth, async (req, res, next) => {
   try {
     user = req.user;
-    readBooks = user.books.filter((b) => b.status == 1);    
+    readBooks = user.books.filter((b) => b.status == 1);
     res.status(200).json(readBooks);
   } catch (error) {
     next(error);

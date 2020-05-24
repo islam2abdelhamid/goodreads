@@ -7,7 +7,7 @@ const Home = props => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    axios
+     axios
       .get("http://localhost:5000/", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("goodReadsToken"),
@@ -16,7 +16,7 @@ const Home = props => {
 
       .then((res) => {
         setBooks(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       });
   }, [setBooks]);
 
