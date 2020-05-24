@@ -9,30 +9,14 @@ const DataList = (props) => {
         padding: "0px",
     }
     const books = props.books;
-    const type = props.type;
-
+    
 
     const handleChangeListing = (e) => {
         // console.log(e.target.value + " hihihi " + e.target.id)
         window.location.replace(`http://localhost:5001/${e.target.value}`);
     }
-    const handleChangeStatus = async (e) => {
-        // console.log(e.target.value)
-        // console.log("hello")
-        const myValue = e.target.value;
-
-
-        axios.patch(`http://localhost:5000/books/${e.target.id}/change-status `, {
-            "status": myValue,
-        })
-            // .then(response => {
-            //     console.log(response)
-            // })
-            // .catch(error => {
-            //     console.log(error.response)
-            // });
-
-    }
+  
+    
 
     return (
         <div className='sign section--bg' data-bg='img/section/section.jpg' style={myStyle}>
@@ -74,7 +58,7 @@ const DataList = (props) => {
                                             aria-haspopup='true'
                                             aria-expanded='false'
                                         >
-                                            <input type='button' value={type} />
+
                                             <span></span>
                                         </div>
 
@@ -109,8 +93,7 @@ const DataList = (props) => {
                         <th>Name</th>
                         <th>Auther</th>
                         <th>Avg Rate</th>
-                        <th>Rating</th>
-                        <th colSpan="2">Shelve</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -121,49 +104,13 @@ const DataList = (props) => {
                                     class='img-thumbnail rounded table__img'
                                     src="https://picsum.photos/200/300" />
                             </td>
-                            <td className='align-middle editable text-light'>{book.book.name}</td>
-                            <td className='align-middle text-light'>{book.book.author.firstName} {book.book.author.lastName}</td>
+                            <td className='align-middle editable text-light'>{book.name}</td>
+                            <td className='align-middle text-light'>{book.author.firstName} {book.author.lastName}</td>
                             <td className='align-middle text-light' >
                                 {book.avgRate ? book.book.avgRate : 0}
                             </td>
 
-                            <td className='align-middle text-light' >
-                                {book.rate ? book.book.rate : 0}
-                                {/* {book.status} */}
-                            </td>
 
-                            <td className='align-middle text-light' >
-                                <div className='filter__items'>
-                                    <div className='filter__item' id='filter__genre'>
-
-                                        <div
-                                            className='filter__item-btn dropdown-toggle'
-                                            role='navigation'
-                                            id='filter-genre'
-                                            data-toggle='dropdown'
-                                            aria-haspopup='true'
-                                            aria-expanded='false'
-                                        >
-                                            <input type='button' value={book.status == 2 ? "Want To Read" : book.status == 1 ? "Read" : "Currently Reading"} />
-                                            <span></span>
-                                        </div>
-
-                                        <select class="form-control" onChange={handleChangeStatus} id={book.book._id}>
-                                            <optgroup label="Select Status">
-
-                                                <option></option>
-                                                <option value="0">Currently Reading</option>
-                                                <option value="1">Read</option>
-                                                <option value="2">Want To Read</option>
-                                            </optgroup>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-
-
-                            </td>
                         </tr>
                     )
                     )}
