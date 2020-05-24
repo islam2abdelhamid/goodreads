@@ -8,6 +8,8 @@ const DataList = (props) => {
         padding: "0px",
     }
     const books = props.books;
+    const type = props.type;
+
     console.log(books);
 
     return (
@@ -50,7 +52,7 @@ const DataList = (props) => {
                                             aria-haspopup='true'
                                             aria-expanded='false'
                                         >
-                                            <input type='button' value='All Book' />
+                                            <input type='button' value={type} />
                                             <span></span>
                                         </div>
 

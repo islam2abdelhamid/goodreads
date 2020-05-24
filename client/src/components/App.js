@@ -1,6 +1,9 @@
 import React, { useEffect, useContext } from 'react';
 import GuestHome from '../pages/Guest/Home';
-import UserHome from '../pages/User/Home';
+import HomeAllBooks from '../pages/User/HomeAllBooks';
+import HomeBooksRead from '../pages/User/HomeBooksRead';
+import HomeBooksReading from '../pages/User/HomeBooksReading';
+import HomeBooksWant from '../pages/User/HomeBooksWant';
 import Login from '../pages/Guest/Login';
 import { AuthContext } from '../context/AuthContext';
 import { CHECK_AUTH } from '../context/AuthContext/actionTypes';
@@ -33,13 +36,17 @@ const App = () => {
         />
         <Switch>
           <Route path='/' exact component={GuestHome} />
-          <Route path='/home' exact component={UserHome} />
+          <Route path='/home' exact component={HomeAllBooks} />
+          <Route path='/reading-books' exact component={HomeBooksReading} />
+          <Route path='/read-books' exact component={HomeBooksRead} /> 
+          <Route path='/want-to-read' exact component={HomeBooksWant} />
           <Route path='/login' exact component={Login} />
           <Route path='/register' exact component={Register} />
           <Route path='/logout' exact component={Logout} />
           <Route path='/Books' exact component={Books} />
           <Route path='/Books/:id' exact component={Book} />
           <Route path='/admin' component={AdminHome} />
+
           <Route path='/404' exact component={FourOFour} />
         </Switch>
       </BrowserRouter>
