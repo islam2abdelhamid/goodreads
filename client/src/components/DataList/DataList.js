@@ -80,7 +80,7 @@ const DataList = (props) => {
 
 
 
-                                        <select class="form-control" onChange={handleChangeListing} id="listing">
+                                        <select className="form-control" onChange={handleChangeListing} id="listing">
                                             <option value="home">ALL</option>
                                             <option value="reading-books">Currently Reading</option>
                                             <option value="read-books">Read</option>
@@ -118,7 +118,7 @@ const DataList = (props) => {
                         <tr key={book._id}>
                             <td className='align-middle text-light'>
                                 <img
-                                    class='img-thumbnail rounded table__img'
+                                    className='img-thumbnail rounded table__img'
                                     src="https://picsum.photos/200/300" />
                             </td>
                             <td className='align-middle editable text-light'>{book.book.name}</td>
@@ -148,7 +148,7 @@ const DataList = (props) => {
                                             <span></span>
                                         </div>
 
-                                        <select class="form-control" onChange={handleChangeStatus} id={book.book._id}>
+                                        <select className="form-control" onChange={handleChangeStatus} id={book.book._id}>
                                             <optgroup label="Select Status">
 
                                                 <option></option>
