@@ -7,13 +7,16 @@ export default ChildComponent => {
 
     return (
       <>
-        {(context.state.isLoaded && context.state.isLogged && context.state.user.isAdmin)?
-        (<ChildComponent user={context.state.user} {...props}/>):(<Redirect to='/' />)}
+        {context.state.isLoaded && (
+          <>
+            {(context.state.isLogged && !context.state.user.isAdmin && (
+              <Redirect to='/' />
+            )) || <ChildComponent user={context.state.user} {...props} />}
+          </>
+        )}
       </>
     );
   };
 
   return AdminGuard;
 };
-
-
