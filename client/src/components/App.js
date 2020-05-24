@@ -9,7 +9,9 @@ import Logout from '../pages/User/Logout';
 import { Header } from './Header/Header';
 import Register from '../pages/Guest/Register';
 import Books from '../pages/Guest/Books';
+import Book from '../pages/User/Book';
 import AdminHome from '../pages/Admin/index';
+import FourOFour from '../pages/404';
 
 const App = () => {
   const context = useContext(AuthContext);
@@ -36,7 +38,9 @@ const App = () => {
           <Route path='/register' exact component={Register} />
           <Route path='/logout' exact component={Logout} />
           <Route path='/Books' exact component={Books} />
+          <Route path='/Books/:id' exact component={Book} />
           <Route path='/admin' component={AdminHome} />
+          <Route path='/404' exact component={FourOFour} />
         </Switch>
       </BrowserRouter>
     </>

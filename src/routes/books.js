@@ -1,8 +1,8 @@
 const { Router } = require('express');
 
-const {Book} = require('../models/Book');
+const { Book } = require('../models/Book');
 const User = require('../models/User');
-const {Review} = require('../models/Book');
+const { Review } = require('../models/Book');
 const userAuth = require('../middleware/userAuth');
 const adminAuth = require('../middleware/adminAuth');
 
@@ -20,12 +20,12 @@ router.get('/', userAuth, async (req, res, next) => {
       .limit(pagination)
       .populate({
         path: 'category',
-        select:'name -_id'
+        select: 'name -_id',
       })
       .populate({
         path: 'author',
-        select:'firstName + lastName -_id'
-      })
+        select: 'firstName + lastName -_id',
+      });
     // .populate('reviews');
     res.status(200).json(books);
   } catch (error) {
@@ -45,9 +45,13 @@ router.get('/top_books', async (req, res, next) => {
 
 router.get('/:id', userAuth, async (req, res, next) => {
   try {
-    book = await Book.findById(req.params.id)
+    const book = await Book.findById(req.params.id)
       .populate('category')
       .populate('author');
+    if (!book) {
+      res.status(404);
+      throw new Error('Book not found');
+    }
     res.status(200).json(book);
   } catch (error) {
     next(error);
@@ -106,7 +110,7 @@ router.post('/:id/reviews', userAuth, async (req, res, next) => {
   });
 
   if (!review) {
-    const userBook = req.user.books.find((book) => {
+    const userBook = req.user.books.find(book => {
       return String(book.bookId) === String(req.params.id);
     });
 
@@ -140,7 +144,7 @@ router.get('/:id/reviews', async (req, res) => {
 });
 // change book status //
 router.patch('/:id/change-status', userAuth, async (req, res, next) => {
-  const book = req.user.books.find((book) => {
+  const book = req.user.books.find(book => {
     return String(book.bookId) === String(req.params.id);
   });
 
