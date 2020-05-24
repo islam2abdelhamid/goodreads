@@ -14,6 +14,7 @@ import Register from '../pages/Guest/Register';
 import Books from '../pages/Guest/Books';
 import Book from '../pages/User/Book';
 import AdminHome from '../pages/Admin/index';
+import AllCategories from '../components/User/Categories'
 import FourOFour from '../pages/404';
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
           <Route path='/Books' exact component={Books} />
           <Route path='/Books/:id' exact component={Book} />
           <Route path='/admin' component={AdminHome} />
+          <Route path='/categories' component={AllCategories} />
 
           <Route path='/404' exact component={FourOFour} />
         </Switch>

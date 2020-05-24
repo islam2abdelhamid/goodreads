@@ -41,9 +41,16 @@ export const Header = ({ isAdmin, isLoaded, user }) => {
                   )}
                   <li className='header__nav-item'>
                     <NavLink className='header__nav-link' to='/Books'>
-                      Books
+                     My Books
                     </NavLink>
                   </li>
+                  {user && (
+                    <li className='header__nav-item'>
+                      <NavLink className='header__nav-link' to='/categories'>
+                      Categories
+                      </NavLink>
+                    </li>
+                  )}
                 </ul>
                 <div className='header__auth'>
                   <button className='header__search-btn' type='button'>
