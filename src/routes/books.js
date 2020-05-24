@@ -148,6 +148,9 @@ router.patch('/:id/change-status', userAuth, async (req, res, next) => {
     return String(book.bookId) === String(req.params.id);
   });
 
+  console.log("boo3kss"+book);
+  console.log("status   "+ req.body.status);
+
   if (!book) {
     req.user.books.push({
       bookId: req.params.id,
@@ -157,7 +160,7 @@ router.patch('/:id/change-status', userAuth, async (req, res, next) => {
     book.status = req.body.status;
   } else {
     return res
-      .status(400)
+      .status(200)
       .send({ message: `book status is already ${req.body.status}` });
   }
   try {

@@ -1,6 +1,6 @@
 import React from 'react';
 import requireAuth from '../../hocs/requireAuth';
-import axios from '../../axios';
+import axios from '../../axios/logged';
 import { Redirect } from "react-router-dom";
 
 const DataList = (props) => {
@@ -18,36 +18,21 @@ const DataList = (props) => {
         window.location.replace(`http://localhost:5001/${e.target.value}`);
     }
     const handleChangeStatus = async (e) => {
-        if (e.target.value == 1) {
-            // console.log(1)
-            try {
-                console.log('http://localhost:5000/books/'+e.target.id+'/change-status')
-                const response = await axios.patch('http://localhost:5000/books/'+e.target.id+'/change-status', { 'status': 1 });
-                window.location.replace(`http://localhost:5001/reading-books`);
-            } catch (e) {
-                console.log(`😱 Axios request failed: ${e}`);
-            }
-        }
-        else if (e.target.value == 2) {
-            // console.log(2)
-            try {
-                const response = await axios.patch('http://localhost:5000/books/'+e.target.id+'/change-status', { 'status': 2 });
-                window.location.replace(`http://localhost:5001/read-books`);
-            } catch (e) {
-                console.log(`😱 Axios request failed: ${e}`);
-            }
-        }
+        console.log(e.target.value)
+        console.log("hello")
+        const myValue = e.target.value;
 
-        else if (e.target.value == 3) {
-            // console.log(3)
-            try {
-                const response = await axios.patch('http://localhost:5000/books/'+e.target.id+'/change-status', { 'status': 3 });
-                window.location.replace(`http://localhost:5001/want-to-read`);
-            } catch (e) {
-                console.log(`😱 Axios request failed: ${e}`);
-            }
 
-        }
+        axios.patch(`http://localhost:5000/books/${e.target.id}/change-status `, {
+            "status": myValue,
+        })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error.response)
+            });
+
     }
 
     return (
@@ -145,6 +130,7 @@ const DataList = (props) => {
 
                             <td className='align-middle text-light' >
                                 {book.rate ? book.book.rate : 0}
+                                {book.status}
                             </td>
 
                             <td className='align-middle text-light' >
@@ -159,18 +145,18 @@ const DataList = (props) => {
                                             aria-haspopup='true'
                                             aria-expanded='false'
                                         >
-                                            <input type='button' value={book.status == 0 ? "Currently Reading" : book.status == 1 ? "Read" : "Want To Read"} />
+                                            <input type='button' value={book.status == 2 ? "Want To Read" : book.status == 1 ? "Read" : "Currently Reading"} />
                                             <span></span>
                                         </div>
 
                                         <select class="form-control" onChange={handleChangeStatus} id={book.book._id}>
                                             <optgroup label="Select Status">
 
-                                            <option></option>
-                                            <option value="1">Currently Reading</option>
-                                                <option value="2">Read</option>
-                                                <option value="3">Want To Read</option>
-                                                </optgroup>
+                                                <option></option>
+                                                <option value="0">Currently Reading</option>
+                                                <option value="1">Read</option>
+                                                <option value="2">Want To Read</option>
+                                            </optgroup>
 
                                         </select>
                                     </div>
