@@ -6,7 +6,7 @@ import {
 
 const AdminHeader = () => {
   return (
-    <div className='sign section--bg' data-bg='img/section/section.jpg'>
+    <div className='sign section--bg mb-3'>
       <nav className="navbar navbar-dark bg-dark col-3 m-auto">
         <p className="navbar-brand" style={{marginTop: "-2rem"}} href="">Admin Pages</p>
         <Link className="header__nav-link" to="/admin/categories/">Categories</Link>

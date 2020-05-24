@@ -1,11 +1,17 @@
 import React from 'react';
 import requireAuth from '../../hocs/requireAuth';
+import axios from '../../axios';
 
 const DataList = (props) => {
-    const myStyle={
-        padding:"0px",
-      }
-    
+
+    const myStyle = {
+        padding: "0px",
+    }
+    const books = props.books;
+    const type = props.type;
+
+    console.log(books);
+
     return (
         <div className='sign section--bg' data-bg='img/section/section.jpg' style={myStyle}>
 
@@ -46,7 +52,7 @@ const DataList = (props) => {
                                             aria-haspopup='true'
                                             aria-expanded='false'
                                         >
-                                            <input type='button' value='All Book' />
+                                            <input type='button' value={type} />
                                             <span></span>
                                         </div>
 
@@ -64,119 +70,78 @@ const DataList = (props) => {
 
                                 <button className='filter__btn' type='button'>
                                     apply filter
-              </button>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className='catalog'>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-6 col-sm-12 col-lg-6'>
-                            <div className='card card--list'>
-                                <div className='row'>
-                                    <div className='col-12 col-sm-4'>
-                                        <div className='card__cover'>
-                                            <img src='img/covers/cover.jpg' alt='' />
-                                            <a href='#' className='card__play'>
-                                                <i className='icon ion-ios-eye'></i>
-                                            </a>
+            <table className="table table-bordered justify-content-center text-center ">
+                <thead>
+                    <tr className="thead-dark">
+                        <th>Cover</th>
+                        <th>Name</th>
+                        <th>Auther</th>
+                        <th>Avg Rate</th>
+                        <th>Rating</th>
+                        <th colSpan="2">Shelve</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {books.map((book,index) => (
+                        <tr key={book._id}>
+                            <td className='align-middle text-light'>
+                                <img
+                                    class='img-thumbnail rounded table__img'
+                                    src="https://picsum.photos/200/300" />
+                            </td>
+                            <td className='align-middle editable text-light'>{book.book.name}</td>
+                            <td className='align-middle text-light'>{book.book.author.firstName} {book.book.author.lastName}</td>
+                            <td className='align-middle text-light' >
+                                {book.avgRate ? book.book.avgRate : 0}
+                            </td>
+
+                            <td className='align-middle text-light' >
+                                {book.rate ? book.book.rate : 0}
+                            </td>
+
+                            <td className='align-middle text-light' >
+                            <div className='filter__items'>
+                                    <div className='filter__item' id='filter__genre'>
+
+                                        <div
+                                            className='filter__item-btn dropdown-toggle'
+                                            role='navigation'
+                                            id='filter-genre'
+                                            data-toggle='dropdown'
+                                            aria-haspopup='true'
+                                            aria-expanded='false'
+                                        >
+                                            <input type='button' value={book.status == 0 ? "Currently Reading" : book.status == 1 ?"Read":"Want To Read"} />
+                                            <span></span>
                                         </div>
-                                    </div>
 
-                                    <div className='col-12 col-sm-8'>
-                                        <div className='card__content'>
-                                            <h3 className='card__title'>
-                                                <a href='#'>I Dream in Another Language</a>
-                                            </h3>
-                                            <span className='card__category'>
-                                                <a href='#'>Action</a>
-                                                <a href='#'>Triler</a>
-                                            </span>
-
-                                            <div className='card__wrap'>
-                                                <span className='card__rate'>
-                                                    <i className='icon ion-ios-star'></i>8.4
-                      </span>
-                                            </div>
-
-                                            <div className='card__description'>
-                                                <div className='filter__item' id='filter__quality'>
-                                                    <span className='filter__item-label'>Shelve:</span>
-
-                                                    <div
-                                                        className='filter__item-btn dropdown-toggle'
-                                                        role='navigation'
-                                                        id='filter-quality'
-                                                        data-toggle='dropdown'
-                                                        aria-haspopup='true'
-                                                        aria-expanded='false'
-                                                    >
-                                                        <input type='button' value='Reading' />
-                                                        <span></span>
-                                                    </div>
-
-                                                    <ul
-                                                        className='filter__item-menu dropdown-menu scrollbar-dropdown'
-                                                        aria-labelledby='filter-quality'
-                                                    >
-                                                        <li>want to read</li>
-                                                        <li>reading</li>
-                                                        <li>read</li>
-                                                    </ul>
-                                                </div>
-
-                                                <input id='hidden_rate_input' type='hidden' value='0' />
-                                                <div className='filter__item' id='filter__rate'>
-                                                    <div className='form__slider'>
-                                                        <div
-                                                            className='form__slider-rating'
-                                                            id='slider__rating'
-                                                        ></div>
-                                                        <div
-                                                            className='form__slider-value'
-                                                            id='form__slider-value'
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <ul
+                                            className='filter__item-menu dropdown-menu scrollbar-dropdown'
+                                            aria-labelledby='filter-genre' 
+                                        >
+                                            <li>Read</li>
+                                            <li>Currently Reading</li>
+                                            <li>Want To Read</li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div className='col-12'>
-                            <ul className='paginator paginator--list'>
-                                <li className='paginator__item paginator__item--prev'>
-                                    <a href='#'>
-                                        <i className='icon ion-ios-arrow-back'></i>
-                                    </a>
-                                </li>
-                                <li className='paginator__item'>
-                                    <a href='#'>1</a>
-                                </li>
-                                <li className='paginator__item paginator__item--active'>
-                                    <a href='#'>2</a>
-                                </li>
-                                <li className='paginator__item'>
-                                    <a href='#'>3</a>
-                                </li>
-                                <li className='paginator__item'>
-                                    <a href='#'>4</a>
-                                </li>
-                                <li className='paginator__item paginator__item--next'>
-                                    <a href='#'>
-                                        <i className='icon ion-ios-arrow-forward'></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            
+                                
+                            </td>
+                        </tr>
+                    )
+                    )}
+                </tbody>
+           
+            </table>
 
 
         </div>

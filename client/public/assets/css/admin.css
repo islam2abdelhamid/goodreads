@@ -1,19 +1,39 @@
 .pink-text{
     color:#ff5860;
+    display: inline-block;
+    border:none;
 }
 
-.fa{
+.fa,
+.fa-plus-circle{
     color: #f6a0c8 !important;
-    font-size: 1.5rem !important;
+    font-size: 1.5rem;
+    transition: .3s ease-in-out;
 }
 
-.fa:hover{
+.fa:hover,
+.fa-plus-circle:hover{
     color:#fd424b !important;
     cursor: pointer;
+    transform: scale(1.2);
 }
 
 .table__img{
     width: 150px;
     height: 150px;
     max-width: unset;
+}
+
+.fa-plus-circle{
+    font-size: 3rem;
+    float: right;
+}
+
+.pink-button:hover{
+    color: #fd424b;
+    background-color:#f6a0c8;
+}
+.pink-button{
+    color:#f6a0c8;
+    background-color:#924448;
 }
