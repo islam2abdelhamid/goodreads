@@ -11,27 +11,26 @@ const DataList = (props) => {
     const books = props.books;
     const type = props.type;
 
-    // console.log(books);
 
     const handleChangeListing = (e) => {
         // console.log(e.target.value + " hihihi " + e.target.id)
         window.location.replace(`http://localhost:5001/${e.target.value}`);
     }
     const handleChangeStatus = async (e) => {
-        console.log(e.target.value)
-        console.log("hello")
+        // console.log(e.target.value)
+        // console.log("hello")
         const myValue = e.target.value;
 
 
         axios.patch(`http://localhost:5000/books/${e.target.id}/change-status `, {
             "status": myValue,
         })
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error.response)
-            });
+            // .then(response => {
+            //     console.log(response)
+            // })
+            // .catch(error => {
+            //     console.log(error.response)
+            // });
 
     }
 
@@ -130,7 +129,7 @@ const DataList = (props) => {
 
                             <td className='align-middle text-light' >
                                 {book.rate ? book.book.rate : 0}
-                                {book.status}
+                                {/* {book.status} */}
                             </td>
 
                             <td className='align-middle text-light' >

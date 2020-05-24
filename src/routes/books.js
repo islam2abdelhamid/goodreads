@@ -148,8 +148,8 @@ router.patch('/:id/change-status', userAuth, async (req, res, next) => {
     return String(book.bookId) === String(req.params.id);
   });
 
-  console.log("boo3kss"+book);
-  console.log("status   "+ req.body.status);
+  // console.log("boo3kss"+book);
+  // console.log("status   "+ req.body.status);
 
   if (!book) {
     req.user.books.push({
