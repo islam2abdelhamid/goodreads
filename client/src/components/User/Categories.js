@@ -20,12 +20,12 @@ const Categories = () => {
 
     return (
     <>
-        <section class="section section--first section--bg" data-bg="assets/img/section/section.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section__wrap">
-                            <h2 class="section__title">Categories </h2>
+        <section className="section section--first section--bg" style={{ backgroundImage:`url(assets/img/section/section.jpg)` }} data-bg="assets/img/section/section.jpg">
+            <div className="container" >
+                <div className="row">
+                    <div className="col-12">
+                        <div className="section__wrap">
+                            <h2 className="section__title">Categories </h2>
                         </div>
                     </div>
                 </div>
@@ -35,9 +35,9 @@ const Categories = () => {
         <div class="container">
             <div class="row">
                 {categories.map((cat)=>(
-                     <div class="col-md-3">
-                        <div class="category__card">
-                            <h2><a href="#">{cat.name}</a></h2>
+                     <div className="col-md-3" key={cat._id}>
+                        <div className="category__card">
+                            <h2><a  href="#">{cat.name}</a></h2>
                         </div>
                     </div>
                     )
@@ -45,11 +45,11 @@ const Categories = () => {
             </div>
         </div>
     </div>
-    <footer class="footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="footer__copyright">
+    <footer className="footer">
+		<div className="container">
+			<div className="row">
+				<div className="col-12">
+					<div className="footer__copyright">
 						<ul>
 							<li><a href="#">Terms of Use</a></li>
 							<li><a href="#">Privacy Policy</a></li>
