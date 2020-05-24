@@ -1,6 +1,7 @@
 import React from 'react';
 import requireAuth from '../../hocs/requireAuth';
 import axios from '../../axios';
+import { Redirect } from "react-router-dom";
 
 const DataList = (props) => {
 
@@ -10,7 +11,14 @@ const DataList = (props) => {
     const books = props.books;
     const type = props.type;
 
-    console.log(books);
+    // console.log(books);
+
+    const handleChangeListing = (e) => {
+        // console.log(e.target.value + " hihihi " + e.target.id)
+        window.location.replace(`http://localhost:5001/${e.target.value}`);
+
+
+    }
 
     return (
         <div className='sign section--bg' data-bg='img/section/section.jpg' style={myStyle}>
@@ -56,15 +64,21 @@ const DataList = (props) => {
                                             <span></span>
                                         </div>
 
-                                        <ul
-                                            className='filter__item-menu dropdown-menu scrollbar-dropdown'
-                                            aria-labelledby='filter-genre'
-                                        >
-                                            <li>All Books</li>
-                                            <li>Read</li>
-                                            <li>Currently Reading</li>
-                                            <li>Want To Read</li>
-                                        </ul>
+
+
+                                        <select class="form-control" onChange={handleChangeListing} id="listing">
+                                            <option value="home">ALL</option>
+                                            <option value="reading-books">Currently Reading</option>
+                                            <option value="read-books">Read</option>
+                                            <option value="want-to-read">Want To Read</option>
+                                            {/* 
+                                            <option value="1">Currently Reading</option>
+                                            <option value="2">Read</option>
+                                            <option value="3">Want To Read</option> */}
+                                        </select>
+
+
+
                                     </div>
                                 </div>
 
@@ -89,7 +103,7 @@ const DataList = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {books.map((book,index) => (
+                    {books.map((book, index) => (
                         <tr key={book._id}>
                             <td className='align-middle text-light'>
                                 <img
@@ -107,7 +121,7 @@ const DataList = (props) => {
                             </td>
 
                             <td className='align-middle text-light' >
-                            <div className='filter__items'>
+                                <div className='filter__items'>
                                     <div className='filter__item' id='filter__genre'>
 
                                         <div
@@ -118,13 +132,13 @@ const DataList = (props) => {
                                             aria-haspopup='true'
                                             aria-expanded='false'
                                         >
-                                            <input type='button' value={book.status == 0 ? "Currently Reading" : book.status == 1 ?"Read":"Want To Read"} />
+                                            <input type='button' value={book.status == 0 ? "Currently Reading" : book.status == 1 ? "Read" : "Want To Read"} />
                                             <span></span>
                                         </div>
 
                                         <ul
                                             className='filter__item-menu dropdown-menu scrollbar-dropdown'
-                                            aria-labelledby='filter-genre' 
+                                            aria-labelledby='filter-genre'
                                         >
                                             <li>Read</li>
                                             <li>Currently Reading</li>
@@ -133,14 +147,14 @@ const DataList = (props) => {
                                     </div>
                                 </div>
 
-                            
-                                
+
+
                             </td>
                         </tr>
                     )
                     )}
                 </tbody>
-           
+
             </table>
 
 

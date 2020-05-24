@@ -49,7 +49,7 @@ router.get('/reading-books', userAuth, async (req, res, next) => {
     }
 
     getBooksWithStatus(getBooks,allUserBooks);
-    console.log(books);
+    // console.log(books);
 
     res.status(200).json({books:books,type:"Currently Reading"});
   } catch (error) {
@@ -75,7 +75,7 @@ router.get('/read-books', userAuth, async (req, res, next) => {
     }
 
     getBooksWithStatus(getBooks,allUserBooks);
-    console.log(books);
+    // console.log(books);
 
     res.status(200).json({books:books,type:"Read"});
   } catch (error) {
@@ -100,7 +100,7 @@ router.get('/want-to-read', userAuth, async (req, res, next) => {
     }
 
     getBooksWithStatus(getBooks,allUserBooks);
-    console.log(books);
+    // console.log(books);
 
     res.status(200).json({books:books,type:"Want To Read"});
   } catch (error) {
