@@ -1237,7 +1237,9 @@ ul {
 	Card
 ==============================*/
 .card {
+  background-color: transparent;
   margin-bottom: 30px;
+  border: none;
 }
 .card__cover {
   position: relative;
