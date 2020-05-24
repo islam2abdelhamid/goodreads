@@ -11,6 +11,7 @@ import { CHECK_AUTH } from '../context/AuthContext/actionTypes';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Logout from '../pages/User/Logout';
 import { Header } from './Header/Header';
+import { Footer } from './Footer/Footer';
 import Register from '../pages/Guest/Register';
 import Books from '../pages/Guest/Books';
 import Book from '../pages/User/Book';
@@ -53,6 +54,7 @@ const App = () => {
 
           <Route path='/404' exact component={FourOFour} />
         </Switch>
+        <Footer/>
       </BrowserRouter>
     </>
   );
