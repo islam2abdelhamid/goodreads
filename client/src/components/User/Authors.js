@@ -37,7 +37,7 @@ const Authors = () => {
 
     return (
     <>  
-        <section className="section section--first section--bg" data-bg="assets/img/section/section.jpg">
+        <section className="section section--first section--bg"  data-bg="assets/img/section/section.jpg">
             <div className="container" >
                 <div className="row" >
                     <div className="col-12">
