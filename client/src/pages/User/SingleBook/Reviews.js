@@ -1,6 +1,7 @@
 import React from 'react';
+import moment from 'moment';
 
-export const Reviews = () => {
+export const Reviews = ({ reviews }) => {
   return (
     <section class='content'>
       <div class='content__head'>
@@ -90,34 +91,34 @@ export const Reviews = () => {
                   <div class='col-12'>
                     <div class='reviews'>
                       <ul class='reviews__list'>
-                        <li class='reviews__item'>
-                          <div class='reviews__autor'>
-                            <img
-                              class='reviews__avatar'
-                              src='img/user.png'
-                              alt=''
-                            />
-                            <span class='reviews__name'>
-                              Best Marvel movie in my opinion
-                            </span>
-                            <span class='reviews__time'>
-                              24.08.2018, 17:53 by John Doe
-                            </span>
+                        {reviews.map(review => (
+                          <li class='reviews__item'>
+                            <div class='reviews__autor'>
+                              <img
+                                class='reviews__avatar'
+                                src={review.userId.avatar}
+                                alt=''
+                              />
+                              <span class='reviews__name'>
+                                {review.bookId.name}
+                              </span>
+                              <span class='reviews__time'>
+                                {moment(review.createdAt)
+                                  .startOf('hour')
+                                  .fromNow()}{' '}
+                                by{' '}
+                                {review.userId.firstName +
+                                  ' ' +
+                                  review.userId.lastName}
+                              </span>
 
-                            <span class='reviews__rating'>
-                              <i class='icon ion-ios-star'></i>8.4
-                            </span>
-                          </div>
-                          <p class='reviews__text'>
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration
-                            in some form, by injected humour, or randomised
-                            words which don't look even slightly believable. If
-                            you are going to use a passage of Lorem Ipsum, you
-                            need to be sure there isn't anything embarrassing
-                            hidden in the middle of text.
-                          </p>
-                        </li>
+                              <span class='reviews__rating'>
+                                <i class='icon ion-ios-star'></i> {review.rate}
+                              </span>
+                            </div>
+                            <p class='reviews__text'>{review.comment}</p>
+                          </li>
+                        ))}
                       </ul>
 
                       <form action='#' class='form'>

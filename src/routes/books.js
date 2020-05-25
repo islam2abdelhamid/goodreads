@@ -139,7 +139,7 @@ router.get('/:id/reviews', async (req, res) => {
     const reviews = await book.getReviews();
     res.send(reviews);
   } catch (error) {
-    res.status(404).send();
+    res.status(404).send(error);
   }
 });
 // change book status //

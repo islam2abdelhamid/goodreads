@@ -49,7 +49,10 @@ bookSchema.post('save', async function () {
 
 bookSchema.methods.getReviews = async function () {
   const book = this;
-  const reviews = await Review.find({ bookId: book._id });
+  const reviews = await Review.find({ bookId: book._id })
+    .populate('userId')
+    .populate('bookId');
+  console.log(reviews);
   return reviews;
 };
 
