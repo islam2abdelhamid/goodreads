@@ -60,7 +60,7 @@ const Books = () => {
               <td className='align-middle text-light'>
                 <img 
                       className='img-thumbnail rounded table__img' 
-                      src="https://picsum.photos/200/300"/>
+                      src={(book.cover && 'http://localhost:5000' + book.cover)}/>
                 </td>
               <td className='align-middle text-light'>{book.category.name}</td>
               <td className='align-middle text-light'>{`${book.author.firstName} ${book.author.lastName}`}</td>

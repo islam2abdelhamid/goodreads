@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const { Book } = require('../models/Book');
+
 const categorySchema = new mongoose.Schema(
   {
     name: {

@@ -6,6 +6,9 @@ const Author = require('../models/Author');
 
 const router = new Router();
 
+const imageUploader = require('../utils/imageUploader');
+const upload = imageUploader('public/uploads/authors/images');
+
 router.get('/', userAuth, async (req, res, next) => {
   try {
     const pagination = req.query.pagination
@@ -75,6 +78,18 @@ router.patch('/:id', adminAuth, async (req, res, next) => {
       { $set: body },
       { new: true }
     );
+    res.status(200).json(author);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+router.patch('/:id/update-avatar', adminAuth, upload.single('avatar'), async (req, res, next) => {
+  try {
+    let author = await Author.findById(req.params.id);
+    author.avatar = '/uploads/authors/images/' + req.file.filename;
+    await author.save();
     res.status(200).json(author);
   } catch (error) {
     next(error);

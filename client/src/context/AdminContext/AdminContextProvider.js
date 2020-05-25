@@ -3,9 +3,9 @@ import AdminContext from './AdminContext';
 import axios from '../../axios/logged'
 
 const AdminContextProvider = (props) => {
-    const [categoryObject, setCategoryObject] = useState({})
-    const [bookObject, setBookObject] = useState({})
-    const [authorObject, setAuthorObject] = useState({})
+    const [categoryObject, setCategoryObject] = useState({name:''})
+    const [bookObject, setBookObject] = useState({name:'', author:'-1', category:'-1'})
+    const [authorObject, setAuthorObject] = useState({firstName:'', lastName:'', dateOfBirth: new Date()})
     const [operation, setOperation] = useState('')
     const [authors, setAuthors] = useState([]);
     const [categories, setCategories] = useState([]);

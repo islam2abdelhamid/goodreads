@@ -8,6 +8,9 @@ const adminAuth = require('../middleware/adminAuth');
 
 const router = new Router();
 
+const imageUploader = require('../utils/imageUploader');
+const upload = imageUploader('public/uploads/books/covers');
+
 // Normal CRUD operations //
 router.get('/', userAuth, async (req, res, next) => {
   try {
@@ -77,6 +80,17 @@ router.patch('/:id', adminAuth, async (req, res, next) => {
       { $set: body },
       { new: true }
     );
+    res.status(200).json(book);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.patch('/:id/update-cover', adminAuth, upload.single('cover'), async (req, res, next) => {
+  try {
+    let book = await Book.findById(req.params.id);
+    book.cover = '/uploads/books/covers/' + req.file.filename;
+    await book.save();
     res.status(200).json(book);
   } catch (error) {
     next(error);
