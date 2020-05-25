@@ -3,35 +3,30 @@ import axios from '../../axios/logged';
 import requireAuth from '../../hocs/requireAuth'
 
 const Category = props => {
-    const [category, setCategory] = useState([]);
-    const [books, setBooks] = useState([]);
+    const [category, setCategory] = useState(null);
     // const [currentPage, setCurrentPage] = useState(1);
-    // const [booksPerPage, setBooksPerPage] = useState(6);
+    // const [booksPerPage, setBooksPerPage] = useState(2);
     // const [activeLinkIndex, setActiveLinkIndex] = useState(1);
     // const pageNumbers = [];
-
+    
+    // if(category){
+    // for(let i = 1 ; i <= Math.ceil(category.books.length / booksPerPage ); i++){
+    //       pageNumbers.push(i);
+    //   }
+    // }
    
     useEffect(() => {
         axios
         .get('/categories/' + props.match.params.id)
         .then((result) => {
             setCategory(result.data);
-            // setCategory(category.concat(result.data))
         })
         .catch((err) => {
             console.log(err);
         });
-        // const fetchCategory = async () => {
-
-        // }
     }, [])
     
     console.log(category);
-    //   console.log(books);
-
-    //   for(let i = 1 ; i <= Math.ceil(category.books.length / booksPerPage ); i++){
-    //     pageNumbers.push(i);
-    // }
     
       const styles = {
         container: {
@@ -54,14 +49,17 @@ const Category = props => {
     //get Current Books
     // const indexOfLastBook = booksPerPage*currentPage;
     // const indexOfFirstBook = indexOfLastBook-booksPerPage;
-    // const currentBooks = category.books.slice(indexOfFirstBook,indexOfLastBook);
+    // let currentBooks = null;
+    // if(category){
+    //      currentBooks = category.books.slice(indexOfFirstBook,indexOfLastBook);
+    // }
 
     //paginate
     // const paginate = (pageNo) => setCurrentPage(pageNo);
-     
 
     return (
-    <>
+        category && (
+        <>
         <section className="section section--first section--bg"  data-bg="assets/img/section/section.jpg">
             <div className="container">
                 <div className="row">
@@ -73,7 +71,7 @@ const Category = props => {
                 </div>
             </div>
         </section>
-        {/* <div className="catalog" >
+        <div className="catalog" >
 		<div className="container" >
 			<div className="row">
                 <div className="row" style={styles.container}>
@@ -87,10 +85,6 @@ const Category = props => {
                                     </div>
                                     <div  className="card__content">
                                          <h3 className="card__title"><a href={'/books/' + book._id}>{book.name}</a></h3>
-                                         <span className="card__category">
-                                            <a style={{fontSize: '125%' }}  href={'/categories/' + book.category._id}><strong>{book.category.name}</strong></a>
-                                            <a style={{fontSize: '125%' }} href={'/authors/' + book.author._id}>by : <strong>{book.author.firstName} {book.author.lastName}</strong></a>
-                                        </span>
                                         <span className='card__rate'>
                                             <i className='icon ion-ios-star'></i> {book.rate || '0'}
                                         </span>
@@ -99,7 +93,7 @@ const Category = props => {
                         )
                     )}
                 </div>
-                <div className="col-12">
+                {/* <div className="col-12">
 
 					<ul className="paginator paginator--list">
                     <li className="paginator__item paginator__item--prev">
@@ -112,12 +106,13 @@ const Category = props => {
 							<a href="#"><i className="icon ion-ios-arrow-forward"></i></a>
                     </li>
 					</ul>
-				</div>
+				</div> */}
 			</div>
 		</div>
-	</div> */}
+	</div>
         
     </>
+        )
   );
 };
 export default requireAuth(Category);
