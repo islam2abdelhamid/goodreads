@@ -111,20 +111,6 @@ function Books() {
          
 			</div>
 		</div>
-    <footer class="footer">
-		<div class="container">
-			<div class="row">
-				
-				<div class="col-12">
-					<div class="footer__copyright">
-
-					
-					</div>
-				</div>
-			
-			</div>
-		</div>
-	</footer>
 	</section>
     </section> 
     
