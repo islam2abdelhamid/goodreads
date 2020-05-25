@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import axios from '../../axios/logged';
 import requireAuth from '../../hocs/requireAuth'
-
+import {Link} from "react-router-dom"
 const Authors = () => {
     const [authors, setAuthors] = useState([]);
     const token = localStorage.getItem('goodReadsToken');
@@ -56,9 +56,9 @@ const Authors = () => {
                                 <div style={styles.item}  key={author._id}>
                                         <div className="card__cover">
                                             <img src="https://picsum.photos/200/300" alt=""/>
-                                            <a href="#" className="card__play">
+                                            <Link to={`/author/${author._id}`} className="card__play">
                                                 <i className="icon ion-ios-eye"></i>
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div style={{display: 'flex',justifyContent: 'center',}} className="card__content">
                                             <h1 style={{fontSize: '150%' }} className="card__title"><a  href="#">{author.firstName} {author.lastName}</a></h1>

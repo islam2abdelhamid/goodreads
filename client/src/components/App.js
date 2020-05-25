@@ -52,7 +52,7 @@ const App = () => {
           <Route path='/categories/:id' component={Category} />
           <Route path='/categories' component={AllCategories} />
           <Route path='/authors' component={AllAuthors} />
-          <Route path= '/auth/:id' exact component={AuthorPage}/>
+          <Route path='/author/:id' exact component={AuthorPage}/>
 
           <Route path='' component={FourOFour} />
         </Switch>

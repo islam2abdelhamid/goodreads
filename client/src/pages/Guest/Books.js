@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import {
+	Link
+  } from "react-router-dom";
 
 import axios from '../../axios';
 import requireGuest from '../../hocs/requireGuest';
-
+import BookCard from '../../components/Guest/BookCard';
 
 function Books() {
   const [books, setBooks] = useState([]);
@@ -55,32 +58,7 @@ function Books() {
             {books.length > 0 && (
               <OwlCarousel className='owl-theme' margin={10} items={4} nav>
                 {books.map(item => (
-                  <div className='item' key={item._id}>
-                    <div className='card card--big'style={{backgroundColor:"#2b2b31" }} >
-                      <div className='card__cover' >
-                        <img src='assets/img/covers/cover.jpg' alt='' />
-                        <a href='#' className='card__play'>
-                          <i className='icon ion-ios-eye'></i>
-                        </a>
-                      </div>
-
-                      <div className='card__content'>
-                        <h3 className='card__title'  >
-                          <a  href='#'>
-                            {item.name}
-                          </a>
-                        </h3>
-                        <span className='card__category'>
-                          {item.category && (
-                            <a href='#'>{item.category.name}</a>
-                          )}
-                        </span>
-                        <span className='card__rate'>
-                          <i className='icon ion-ios-star'></i>8.4
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  <BookCard book={item} key={item._id}/>
                 ))}
               </OwlCarousel>
             )}
@@ -95,7 +73,7 @@ function Books() {
 					<h2 class="section__title">Popular Authors</h2>
           {authors.map(item => (
 					<ul class="author__list">
-						<li><a href="#">{item.firstName +" "+ item.lastName}</a></li>
+						<li><Link to={`/author/${item._id}`}>{item.firstName +" "+ item.lastName}</Link></li>
 					</ul>
            ))}
 				</div>
