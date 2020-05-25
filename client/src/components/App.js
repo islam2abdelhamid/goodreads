@@ -18,6 +18,7 @@ import Book from '../pages/User/SingleBook/SingleBook';
 import AdminHome from '../pages/Admin/index';
 import AllCategories from '../components/User/Categories'
 import AllAuthors from '../components/User/Authors'
+import AllBooks from '../components/User/Books'
 import FourOFour from '../pages/404';
 
 const App = () => {
@@ -48,7 +49,7 @@ const App = () => {
           <Route path='/login' exact component={Login} />
           <Route path='/register' exact component={Register} />
           <Route path='/logout' exact component={Logout} />
-          <Route path='/Books' exact component={Books} />
+          <Route path='/Books' exact component={AllBooks} />
           <Route path='/Books/:id' exact component={Book} />
           <Route path='/admin' component={AdminHome} />
           <Route path='/categories' component={AllCategories} />
