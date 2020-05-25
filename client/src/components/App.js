@@ -17,6 +17,7 @@ import Books from '../pages/Guest/Books';
 import Book from '../pages/User/SingleBook/SingleBook';
 import AdminHome from '../pages/Admin/index';
 import AllCategories from '../components/User/Categories'
+import AllAuthors from '../components/User/Authors'
 import FourOFour from '../pages/404';
 
 const App = () => {
@@ -51,6 +52,7 @@ const App = () => {
           <Route path='/Books/:id' exact component={Book} />
           <Route path='/admin' component={AdminHome} />
           <Route path='/categories' component={AllCategories} />
+          <Route path='/authors' component={AllAuthors} />
 
           <Route path='/404' exact component={FourOFour} />
         </Switch>

@@ -4,8 +4,6 @@ import requireAuth from '../../hocs/requireAuth'
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
-    const token = localStorage.getItem('goodReadsToken');
-    let index = 0
     useEffect(() => {
         axios
           .get('/categories')

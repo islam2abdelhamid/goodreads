@@ -7,6 +7,7 @@ export const Footer = () => {
                 <div className="row">
                     <div className="col-12">
                         <div className="footer__copyright">
+                        <small><a target="_blank" href="https://github.com/islam2abdelhamid/goodreads">Good Reads</a></small>
                             <ul>
                                 <li><a href="#">Terms of Use</a></li>
                                 <li><a href="#">Privacy Policy</a></li>
