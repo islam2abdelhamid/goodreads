@@ -52,7 +52,7 @@ const App = () => {
           <Route path='/admin' component={AdminHome} />
           <Route path='/categories' component={AllCategories} />
 
-          <Route path='/404' exact component={FourOFour} />
+          <Route path='' component={FourOFour} />
         </Switch>
         <Footer/>
       </BrowserRouter>

@@ -466,5 +466,10 @@ $(document).ready(function () {
     }
     return false;
   }
+  $('#admin-form').on('submit', ()=>{
+    $('#exampleModalCenter').modal('hide');
+  })
+
+
   $(window).on('load', initializeThirdSlider());
 });
