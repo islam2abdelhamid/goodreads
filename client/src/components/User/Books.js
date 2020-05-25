@@ -4,6 +4,15 @@ import requireAuth from '../../hocs/requireAuth'
 
 const Books = () => {
     const [books, setBooks] = useState([]);
+    // const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [booksPerPage, setBooksPerPage] = useState(6);
+    const [activeLinkIndex, setActiveLinkIndex] = useState(1);
+    const pageNumbers = [];
+
+    for(let i = 1 ; i <= Math.ceil(books.length / booksPerPage ); i++){
+        pageNumbers.push(i);
+    }
     useEffect(() => {
         axios
         .get('/books')
@@ -32,7 +41,15 @@ const Books = () => {
             backgroundImage: `url("assets/img/section/section.jpg")`,
         }
     };
+    
+    //get Current Books
+    const indexOfLastBook = booksPerPage*currentPage;
+    const indexOfFirstBook = indexOfLastBook-booksPerPage;
+    const currentBooks = books.slice(indexOfFirstBook,indexOfLastBook);
 
+    //paginate
+    const paginate = (pageNo) => setCurrentPage(pageNo);
+     
 
     return (
     <>
@@ -51,7 +68,7 @@ const Books = () => {
 		<div className="container" >
 			<div className="row">
                 <div className="row" style={styles.container}>
-                        {books.map((book)=>(
+                        {currentBooks.map((book)=>(
                             <div className="card card--big" style={styles.itemCard}  key={book._id}>
                                     <div className="card__cover">
                                         <img src="https://picsum.photos/200/300" alt=""/>
@@ -61,7 +78,7 @@ const Books = () => {
                                     </div>
                                     <div  className="card__content">
                                          <h3 className="card__title"><a href={'/books/' + book._id}>{book.name}</a></h3>
-                                         <span class="card__category">
+                                         <span className="card__category">
                                             <a style={{fontSize: '125%' }}  href={'/categories/' + book.category._id}><strong>{book.category.name}</strong></a>
                                             <a style={{fontSize: '125%' }} href={'/authors/' + book.author._id}>by : <strong>{book.author.firstName} {book.author.lastName}</strong></a>
                                         </span>
@@ -73,6 +90,20 @@ const Books = () => {
                         )
                     )}
                 </div>
+                <div className="col-12">
+
+					<ul className="paginator paginator--list">
+                    <li className="paginator__item paginator__item--prev">
+							<a href="#"><i className="icon ion-ios-arrow-back"></i></a>
+						</li>
+                    {pageNumbers.map((number)=>(
+                        <li  key={number} className={activeLinkIndex === number ? 'paginator__item paginator__item--active' : 'paginator__item'}><a onClick={(e) => {e.preventDefault();paginate(number);setActiveLinkIndex(number);}} href="!#">{number}</a></li>
+                    ))}
+                    <li className="paginator__item paginator__item--next">
+							<a href="#"><i className="icon ion-ios-arrow-forward"></i></a>
+                    </li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
