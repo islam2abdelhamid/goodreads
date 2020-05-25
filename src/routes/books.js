@@ -20,11 +20,11 @@ router.get('/', userAuth, async (req, res, next) => {
       .limit(pagination)
       .populate({
         path: 'category',
-        select: 'name -_id',
+        select: 'name',
       })
       .populate({
         path: 'author',
-        select: 'firstName + lastName -_id',
+        select: 'firstName + lastName',
       });
     // .populate('reviews');
     res.status(200).json(books);
