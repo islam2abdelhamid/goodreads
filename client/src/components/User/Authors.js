@@ -27,6 +27,7 @@ const Authors = () => {
         item: {
             margin: '10px',
             padding: '10px',
+            width:'28%'
         },
         section: {
             backgroundImage: `url("assets/img/section/section.jpg")`,
@@ -35,10 +36,10 @@ const Authors = () => {
 
 
     return (
-    <>
-        <section className="section section--first section--bg" style={styles.section} data-bg="assets/img/section/section.jpg">
+    <>  
+        <section className="section section--first section--bg" data-bg="assets/img/section/section.jpg">
             <div className="container" >
-                <div className="row">
+                <div className="row" >
                     <div className="col-12">
                         <div className="section__wrap">
                             <h2 className="section__title">Authors </h2>
@@ -47,34 +48,27 @@ const Authors = () => {
                 </div>
             </div>
         </section>
-        <div className="catalog">
-		<div className="container">
-			<div className="row">
-				{/* <div class="col-6 col-sm-12 col-lg-6"> */}
-					{/* <div class="card card--list"> */}
-						<div className="row" style={styles.container}>
-                        {authors.map((author)=>(
-                            <div style={styles.item}  key={author._id}>
-                                    <div className="card__cover">
-                                        <img src="https://picsum.photos/200/300" alt=""/>
-                                        <a href="#" className="card__play">
-                                            <i className="icon ion-ios-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div style={{display: 'flex',justifyContent: 'center',}} className="card__content">
-                                         <h3 className="card__title"><a href="#">{author.firstName} {author.lastName}</a></h3>
-                                    </div>
-                            </div>
-                        )
-                    )}
-							
-						</div>
-					{/* </div> */}
-				{/* </div> */}
-
-				
-			</div>
-		</div>
+        <div className="catalog" style={{}}>
+            <div className="container">
+                <div className="row">
+                    <div className="row" style={styles.container}>
+                            {authors.map((author)=>(
+                                <div style={styles.item}  key={author._id}>
+                                        <div className="card__cover">
+                                            <img src="https://picsum.photos/200/300" alt=""/>
+                                            <a href="#" className="card__play">
+                                                <i className="icon ion-ios-eye"></i>
+                                            </a>
+                                        </div>
+                                        <div style={{display: 'flex',justifyContent: 'center',}} className="card__content">
+                                            <h1 style={{fontSize: '150%' }} className="card__title"><a  href="#">{author.firstName} {author.lastName}</a></h1>
+                                        </div>
+                                </div>
+                            )
+                        )}
+                    </div>
+                </div>
+            </div>
 	</div>
         
     </>

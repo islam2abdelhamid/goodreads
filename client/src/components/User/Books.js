@@ -26,6 +26,7 @@ const Books = () => {
         itemCard: {
             margin: '10px',
             padding: '10px',
+            width:'28%',
         },
         section: {
             backgroundImage: `url("assets/img/section/section.jpg")`,
@@ -61,8 +62,8 @@ const Books = () => {
                                     <div  className="card__content">
                                          <h3 className="card__title"><a href={'/books/' + book._id}>{book.name}</a></h3>
                                          <span class="card__category">
-                                            <a href="#">{book.category.name}</a>
-                                            <a href="#">{book.author.firstName} {book.author.lastName}</a>
+                                            <a style={{fontSize: '125%' }}  href={'/categories/' + book.category._id}><strong>{book.category.name}</strong></a>
+                                            <a style={{fontSize: '125%' }} href={'/authors/' + book.author._id}>by : <strong>{book.author.firstName} {book.author.lastName}</strong></a>
                                         </span>
                                         <span className='card__rate'>
                                             <i className='icon ion-ios-star'></i> {book.rate || '0'}
