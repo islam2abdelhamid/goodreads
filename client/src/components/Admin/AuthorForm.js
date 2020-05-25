@@ -18,6 +18,11 @@ const AuthorForm = (props) => {
         context.setAuthorObject(prevAuthor => ({...prevAuthor, dateOfBirth: startDate}))
     }
 
+    const handlingAvatarChange = e =>{
+        const image = e.target.files[0]
+        context.setAuthorObject(prevAuthor => ({...prevAuthor, avatar: image}))
+    }
+
     return (
         <React.Fragment>
             <div className='form-group'>
@@ -52,6 +57,15 @@ const AuthorForm = (props) => {
                     onChange={handlingDateChange}
                     name='dateOfBirth' 
                     required
+                />
+            </div>
+            <div className='form-group'>
+                <label className="text-light">Avatar</label>
+                <input 
+                  type='file'
+                  className="form-control"
+                  onChange={handlingAvatarChange}
+                  name='avatar'
                 />
             </div>
         </React.Fragment>

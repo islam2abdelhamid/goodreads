@@ -57,7 +57,7 @@ const Authors = () => {
                 <td className='align-middle text-light'>{index++}</td>
                 <td className='align-middle editable text-light' data-id={ author._id }>{author.firstName}</td>
                 <td className='align-middle editable text-light' data-id={ author._id }>{author.lastName}</td>
-                <td className='align-middle'><img className='img-thumbnail rounded table__img' src="https://picsum.photos/200/300"/></td>
+                <td className='align-middle'><img className='img-thumbnail rounded table__img' src={(author.avatar && 'http://localhost:5000' + author.avatar)}/></td>
                 <td className='align-middle text-light'>{new Date(`${author.dateOfBirth}`).toDateString().slice(3,)}</td>
                 <td className='align-middle text-light' data-id={ author._id }><i className="fa fa-edit" onClick={()=>editing(author)} title='edit' data-toggle="modal" data-target="#exampleModalCenter"></i></td>
                 <td className='align-middle text-light'>

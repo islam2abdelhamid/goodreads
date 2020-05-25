@@ -26,9 +26,11 @@ const handlingFormSubmit = (e)=>{
   }
 
   const handlingBookCreation = (form)=>{
-      let name = form.name.value;
-      let author = form.author.value;
-      let category = form.category.value;
+      const name = form.name.value;
+      const author = form.author.value;
+      const category = form.category.value;
+      const cover = form.cover.files[0];
+      
       if (category == -1 || author == -1){
           console.log('hi there');
           
@@ -40,13 +42,14 @@ const handlingFormSubmit = (e)=>{
       )
       .then((result) => {
         context.retrieveBooks();
+        updatingBookCover(result.data._id, cover)
       })
       .catch((err) => {
         console.log(err);
       });
   }
   const handlingCategoryCreation = (form)=>{
-      let name = form.name.value;
+      const name = form.name.value;
       axios
       .post('/categories', {name},
       )
@@ -58,15 +61,17 @@ const handlingFormSubmit = (e)=>{
       });
   }
   const handlingAuthorCreation = (form)=>{
-      let firstName = form.firstName.value;
-      let lastName = form.lastName.value;
-      let dateOfBirth = form.dateOfBirth.value;
+      const firstName = form.firstName.value;
+      const lastName = form.lastName.value;
+      const dateOfBirth = form.dateOfBirth.value;
+      const avatar = form.avatar.files[0];
 
       axios
       .post('/authors', {firstName, lastName, dateOfBirth},
       )
       .then((result) => {
         context.retrieveAuthors();
+        updatingAuthorAvatar(result.data._id, avatar)
       })
       .catch((err) => {
         console.log(err);
@@ -74,39 +79,45 @@ const handlingFormSubmit = (e)=>{
   }
 
   const handlingBookEditing = ()=>{
-    let id = context.bookObject._id;
-    let name = context.bookObject.name;
-    let author = context.bookObject.author;
-    let category = context.bookObject.category;
+    const id = context.bookObject._id;
+    const name = context.bookObject.name;
+    const author = context.bookObject.author;
+    const category = context.bookObject.category;
     axios
     .patch(`/books/${id}`, {name, author, category}
     )
     .then((result) => {
       context.retrieveBooks();
+      if(context.bookObject.cover){
+        updatingBookCover(id, context.bookObject.cover);
+      }
     })
     .catch((err) => {
       console.log(err);
     });
   }
   const handlingAuthorEditing = ()=>{
-    let id = context.authorObject._id;
-    let firstName = context.authorObject.firstName;
-    let lastName = context.authorObject.lastName;
-    let dateOfBirth = context.authorObject.dateOfBirth;
+    const id = context.authorObject._id;
+    const firstName = context.authorObject.firstName;
+    const lastName = context.authorObject.lastName;
+    const dateOfBirth = context.authorObject.dateOfBirth;
 
     axios
     .patch(`/authors/${id}`, {firstName, lastName, dateOfBirth}
     )
     .then((result) => {
       context.retrieveAuthors();
+      if(context.authorObject.avatar){
+        updatingAuthorAvatar(id, context.authorObject.avatar);
+      }
     })
     .catch((err) => {
       console.log(err);
     });
   }
   const handlingCategoryEditing = (e)=>{
-      let id = context.categoryObject._id;
-      let name = context.categoryObject.name;
+      const id = context.categoryObject._id;
+      const name = context.categoryObject.name;
       axios
       .patch(`/categories/${id}`, {name}
       )
@@ -116,6 +127,22 @@ const handlingFormSubmit = (e)=>{
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  const updatingBookCover = (bookId, cover)=>{
+    const formData = new FormData();
+    formData.append('cover', cover);
+    axios.patch(`/books/${bookId}/update-cover`, formData, {
+      'content-type': 'multipart/form-data'
+    }).then(()=>context.retrieveBooks());
+  }
+  
+  const updatingAuthorAvatar = (authorId, avatar)=>{
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    axios.patch(`/authors/${authorId}/update-avatar`, formData, {
+      'content-type': 'multipart/form-data'
+    }).then(()=>context.retrieveAuthors());
   }
 
   return (
@@ -129,7 +156,7 @@ const handlingFormSubmit = (e)=>{
           </button>
           </div>
           <div className="modal-body">
-              <form onSubmit={handlingFormSubmit} id='admin-form'>
+              <form onSubmit={handlingFormSubmit} id='admin-form' encType="multipart/form-data">
                   {(props.type === 'book' && <BookForm />) || (props.type === 'author' && <AuthorForm />) || (props.type === 'category' && <CategoryForm />)}
                   <div className="modal-footer">
                   <button type="button" className="btn btn-primary bg-dark border-0" data-dismiss="modal">Cancel</button>
