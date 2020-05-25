@@ -39,7 +39,7 @@ const App = () => {
           user={context.state.isLogged && context.state.user}
         />
         <Switch>
-          <Route path='/' exact component={GuestHome} />
+          <Route path='/' exact component={Books} />
           <Route path='/home' exact component={HomeAllBooks} />
           <Route path='/reading-books' exact component={HomeBooksReading} />
           <Route path='/read-books' exact component={HomeBooksRead} /> 

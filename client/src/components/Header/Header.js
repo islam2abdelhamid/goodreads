@@ -39,15 +39,17 @@ export const Header = ({ isAdmin, isLoaded, user }) => {
                       </NavLink>
                     </li>
                   )}
-                  <li className='header__nav-item'>
-                    <NavLink className='header__nav-link' to='/Books'>
-                     My Books
-                    </NavLink>
-                  </li>
                   {user && (
                     <li className='header__nav-item'>
                       <NavLink className='header__nav-link' to='/categories'>
                       Categories
+                      </NavLink>
+                    </li>
+                  )}
+                   {user && (
+                    <li className='header__nav-item'>
+                      <NavLink className='header__nav-link' to='/authors'>
+                      Authors
                       </NavLink>
                     </li>
                   )}
