@@ -52,8 +52,8 @@ router.get('/top_authors', (req, res, next) => {
 
 router.get('/:id', userAuth, async (req, res, next) => {
   try {
-    author = await Author.findById(req.params.id);
-    res.status(200).json(author).populate('books');
+    author = await (await Author.findById(req.params.id).populate('books').populate('category'));
+    res.status(200).json(author);
   } catch (error) {
     next(error);
   }
