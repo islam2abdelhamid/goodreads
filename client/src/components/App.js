@@ -54,7 +54,7 @@ const App = () => {
           <Route path='/categories' component={AllCategories} />
           <Route path='/authors' component={AllAuthors} />
 
-          <Route path='/404' exact component={FourOFour} />
+          <Route path='' component={FourOFour} />
         </Switch>
         <Footer/>
       </BrowserRouter>

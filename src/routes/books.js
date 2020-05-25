@@ -20,11 +20,11 @@ router.get('/', userAuth, async (req, res, next) => {
       .limit(pagination)
       .populate({
         path: 'category',
-        select: 'name -_id',
+        select: 'name',
       })
       .populate({
         path: 'author',
-        select: 'firstName + lastName -_id',
+        select: 'firstName + lastName',
       });
     // .populate('reviews');
     res.status(200).json(books);
@@ -139,7 +139,7 @@ router.get('/:id/reviews', async (req, res) => {
     const reviews = await book.getReviews();
     res.send(reviews);
   } catch (error) {
-    res.status(404).send();
+    res.status(404).send(error);
   }
 });
 // change book status //

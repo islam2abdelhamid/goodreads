@@ -56,6 +56,20 @@ router.get('/:id', userAuth, async (req, res, next) => {
   }
 });
 
+router.patch('/:id', adminAuth, async (req, res, next) => {
+  let { body } = req;
+  try {
+    let cat = await Category.findByIdAndUpdate(
+      req.params.id,
+      { $set: body },
+      { new: true }
+    );
+    res.status(200).json(cat);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/', adminAuth, async (req, res, next) => {
   let {
     body: { name },

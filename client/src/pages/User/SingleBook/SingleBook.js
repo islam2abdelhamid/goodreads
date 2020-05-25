@@ -6,11 +6,16 @@ import { Reviews } from './Reviews';
 
 const SingleBook = props => {
   const [book, setBook] = useState(null);
+  const [reviews, setReviews] = useState(null);
   useEffect(() => {
     loggedAxios
       .get('/books/' + props.match.params.id)
       .then(result => {
         setBook(result.data);
+        return loggedAxios.get('/books/' + props.match.params.id + '/reviews');
+      })
+      .then(result => {
+        setReviews(result.data);
       })
       .catch(err => {
         props.history.push('/404');
@@ -20,9 +25,8 @@ const SingleBook = props => {
   return (
     book && (
       <>
-        {' '}
         <Book book={book} />
-        <Reviews />
+        {reviews && <Reviews reviews={reviews} />}
       </>
     )
   );
