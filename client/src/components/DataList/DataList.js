@@ -1,37 +1,47 @@
-import React from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import requireAuth from '../../hocs/requireAuth';
 import axios from '../../axios/logged';
 import { Redirect } from "react-router-dom";
 
 const DataList = (props) => {
+    const [books, setBooks] = useState([]);
+    const [choice, setChoice] = useState('');
+    useEffect(() => {
+        axios
+        .get('http://localhost:5000')
+        .then((result) => {
+          setBooks(result.data.books)
+        })
+        .catch((err) => {
+
+        });
+      }, [])
+
+      useEffect(() => {
+        axios
+        .get('http://localhost:5000/'+choice)
+        .then((result) => {
+            setBooks([])
+            setBooks(result.data.books)
+        })
+        .catch((err) => {
+
+        });
+      }, [choice])
+
 
     const myStyle = {
         padding: "0px",
     }
-    const books = props.books;
     const type = props.type;
-
-
     const handleChangeListing = (e) => {
-        // console.log(e.target.value + " hihihi " + e.target.id)
         window.location.replace(`http://localhost:5001/${e.target.value}`);
     }
     const handleChangeStatus = async (e) => {
-        // console.log(e.target.value)
-        // console.log("hello")
         const myValue = e.target.value;
-
-
         axios.patch(`http://localhost:5000/books/${e.target.id}/change-status `, {
             "status": myValue,
         })
-            // .then(response => {
-            //     console.log(response)
-            // })
-            // .catch(error => {
-            //     console.log(error.response)
-            // });
-
     }
 
     return (
@@ -66,25 +76,13 @@ const DataList = (props) => {
                                     <div className='filter__item' id='filter__genre'>
                                         <span className='filter__item-label'>Books To View:</span>
 
-                                        <div
-                                            className='filter__item-btn dropdown-toggle'
-                                            role='navigation'
-                                            id='filter-genre'
-                                            data-toggle='dropdown'
-                                            aria-haspopup='true'
-                                            aria-expanded='false'
-                                        >
-                                            <input type='button' value={type} />
-                                            <span></span>
-                                        </div>
+                                      
 
-
-
-                                        <select className="form-control" onChange={handleChangeListing} id="listing">
-                                            <option value="home">ALL</option>
-                                            <option value="reading-books">Currently Reading</option>
-                                            <option value="read-books">Read</option>
-                                            <option value="want-to-read">Want To Read</option>
+                                        <select className="form-control" onChange={(e)=>{setChoice(e.target.value)}} id="listing">
+                                            <option value="">ALL</option>
+                                            <option value="Currently">Currently Reading</option>
+                                            <option value="Read">Read</option>
+                                            <option value="Want">Want To Read</option>
 
                                         </select>
 
@@ -133,20 +131,7 @@ const DataList = (props) => {
                             </td>
 
                             <td className='align-middle text-light' >
-                                <div className='filter__items'>
-                                    <div className='filter__item' id='filter__genre'>
 
-                                        <div
-                                            className='filter__item-btn dropdown-toggle'
-                                            role='navigation'
-                                            id='filter-genre'
-                                            data-toggle='dropdown'
-                                            aria-haspopup='true'
-                                            aria-expanded='false'
-                                        >
-                                            <input type='button' value={book.status == 2 ? "Want To Read" : book.status == 1 ? "Read" : "Currently Reading"} />
-                                            <span></span>
-                                        </div>
 
                                         <select className="form-control" onChange={handleChangeStatus} id={book.book._id}>
                                             <optgroup label="Select Status">
@@ -158,9 +143,8 @@ const DataList = (props) => {
                                             </optgroup>
 
                                         </select>
-                                    </div>
-                                </div>
-
+                                    
+                                    
 
 
                             </td>
