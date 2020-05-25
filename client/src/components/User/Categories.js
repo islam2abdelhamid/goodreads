@@ -35,7 +35,7 @@ const Categories = () => {
                 {categories.map((cat)=>(
                      <div className="col-md-3" key={cat._id}>
                         <div className="category__card">
-                            <h2><a  href="#">{cat.name}</a></h2>
+                            <h2><a  href={'/categories/' + cat._id}>{cat.name}</a></h2>
                         </div>
                     </div>
                     )

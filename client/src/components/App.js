@@ -1,9 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import GuestHome from '../pages/Guest/Home';
 import HomeAllBooks from '../pages/User/HomeAllBooks';
-import HomeBooksRead from '../pages/User/HomeBooksRead';
-import HomeBooksReading from '../pages/User/HomeBooksReading';
-import HomeBooksWant from '../pages/User/HomeBooksWant';
+
 import Search from '../pages/User/Search';
 import Login from '../pages/Guest/Login';
 import { AuthContext } from '../context/AuthContext';
@@ -20,6 +18,7 @@ import AllCategories from '../components/User/Categories'
 import AllAuthors from '../components/User/Authors'
 import AllBooks from '../components/User/Books'
 import AuthorPage from '../components/User/AuthorPage'
+import Category from '../components/User/Category'
 import FourOFour from '../pages/404';
 
 const App = () => {
@@ -43,9 +42,6 @@ const App = () => {
         <Switch>
           <Route path='/' exact component={Books} />
           <Route path='/home' exact component={HomeAllBooks} />
-          <Route path='/reading-books' exact component={HomeBooksReading} />
-          <Route path='/read-books' exact component={HomeBooksRead} /> 
-          <Route path='/want-to-read' exact component={HomeBooksWant} />
           <Route path='/search' exact component={Search} />
           <Route path='/login' exact component={Login} />
           <Route path='/register' exact component={Register} />
@@ -53,6 +49,7 @@ const App = () => {
           <Route path='/Books' exact component={AllBooks} />
           <Route path='/Books/:id' exact component={Book} />
           <Route path='/admin' component={AdminHome} />
+          <Route path='/categories/:id' component={Category} />
           <Route path='/categories' component={AllCategories} />
           <Route path='/authors' component={AllAuthors} />
           <Route path= '/auth/:id' exact component={AuthorPage}/>
