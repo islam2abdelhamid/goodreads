@@ -11,7 +11,7 @@ import Logout from '../pages/User/Logout';
 import { Header } from './Header/Header';
 import { Footer } from './Footer/Footer';
 import Register from '../pages/Guest/Register';
-import Books from '../pages/Guest/Books';
+import Books from '../pages/Guest/HomeGuest';
 import Book from '../pages/User/SingleBook/SingleBook';
 import AdminHome from '../pages/Admin/index';
 import AllCategories from '../components/User/Categories';
