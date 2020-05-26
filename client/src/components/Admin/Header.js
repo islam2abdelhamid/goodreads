@@ -1,17 +1,21 @@
 import React from 'react';
 
-import {
-	Link
-  } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const AdminHeader = () => {
   return (
     <div className='sign section--bg mb-3'>
-      <nav className="navbar navbar-dark bg-dark col-3 m-auto">
-        <p className="navbar-brand" style={{marginTop: "-2rem"}} href="">Admin Pages</p>
-        <Link className="header__nav-link" to="/admin/categories/">Categories</Link>
-        <Link className="header__nav-link" to="/admin/books/">Books</Link>
-        <Link className="header__nav-link" to="/admin/authors/">Authors</Link>
+      <h2 className='text-center text-white'>Admin Pages</h2>
+      <nav className='navbar navbar-dark bg-dark col-6 m-auto text-center'>
+        <Link className='header__nav-link' to='/admin/categories/'>
+          Categories
+        </Link>
+        <Link className='header__nav-link' to='/admin/books/'>
+          Books
+        </Link>
+        <Link className='header__nav-link' to='/admin/authors/'>
+          Authors
+        </Link>
       </nav>
     </div>
   );

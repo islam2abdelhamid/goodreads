@@ -467,6 +467,7 @@ $(document).ready(function () {
     return false;
   }
   $('#admin-form').on('submit', () => {
+    alert('afds');
     $('#exampleModalCenter').modal('hide');
   });
 

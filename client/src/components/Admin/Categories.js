@@ -5,63 +5,102 @@ import Modal from './Modal';
 import AdminContext from '../../context/AdminContext/AdminContext';
 
 const Categories = () => {
-    const context = useContext(AdminContext);
-    
-    let index = 0
-    
-    useEffect(() => {
-      context.retrieveCategories();
-    }, [])
-      
-    const deletingCat = (e)=>{
-      let id = e.target.dataset.id
-      axios
+  const context = useContext(AdminContext);
+
+  let index = 0;
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  useEffect(() => {
+    context.retrieveCategories();
+  }, []);
+
+  const deletingCat = e => {
+    let id = e.target.dataset.id;
+    axios
       .delete(`/categories/${id}`)
-      .then((result) => {
-        context.retrieveCategories()
+      .then(result => {
+        context.retrieveCategories();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
-    }
+  };
 
-    const creation = ()=>{
-      context.setCategoryObject({name:''});
-      context.setOperation('create');
-    }
-  
-    const editing = (cat)=>{
-      context.setCategoryObject(cat);
-      context.setOperation('edit');
-    }
+  const creation = () => {
+    context.setCategoryObject({ name: '' });
+    context.setOperation('create');
+  };
 
-    return (
-      <div className="col-6 m-auto">
-        <Modal type='category'/>
-        <h2 className="pink-text">Categories</h2>
-        <i className="fas fa-plus-circle mb-3" title='Create new category' type="button" onClick={creation} data-toggle="modal" data-target="#exampleModalCenter"></i>
-        <table className="table table-bordered justify-content-center text-center ">
+  const editing = cat => {
+    context.setCategoryObject(cat);
+    context.setOperation('edit');
+  };
+
+  return (
+    <div className='col-6 m-auto'>
+      <i
+        className='fas fa-plus-circle mb-3'
+        title={'create new category'}
+        type='button'
+        onClick={() => {
+          creation();
+          handleShow();
+        }}
+      ></i>
+      <Modal
+        type='category'
+        creation={creation}
+        show={show}
+        handleClose={handleClose}
+        handleShow={handleShow}
+      />
+
+      <h2 className='pink-text'>Categories</h2>
+      <table className='table table-bordered justify-content-center text-center '>
         <thead>
-        <tr className="thead-dark">
+          <tr className='thead-dark'>
             <th>#</th>
-            <th className="col-4">Name</th>
-            <th colSpan="2">Actions</th>
-        </tr>
+            <th className='col-4'>Name</th>
+            <th colSpan='2'>Actions</th>
+          </tr>
         </thead>
         <tbody>
-        {context.categories.map((cat)=>(
+          {context.categories.map(cat => (
             <tr key={cat._id}>
-                <td className='align-middle text-light'>{index++}</td>
-                <td className='align-middle editable text-light' data-id={ cat._id }>{cat.name}</td>
-                <td className='align-middle text-light' data-id={ cat._id }><i className="fa fa-edit" data-toggle="modal" data-target="#exampleModalCenter" onClick={()=>editing(cat)} title='edit'></i></td>
-                <td className='align-middle text-light'>
-                  <i className="fa fa-trash" title='delete' data-id={ cat._id } onClick={deletingCat}></i>
-                </td>
+              <td className='align-middle text-light'>{index++}</td>
+              <td
+                className='align-middle editable text-light'
+                data-id={cat._id}
+              >
+                {cat.name}
+              </td>
+              <td className='align-middle text-light' data-id={cat._id}>
+                <i
+                  className='fa fa-edit'
+                  data-toggle='modal'
+                  data-target='#exampleModalCenter'
+                  onClick={() => {
+                    editing(cat);
+                    handleShow();
+                  }}
+                  title='edit'
+                ></i>
+              </td>
+              <td className='align-middle text-light'>
+                <i
+                  className='fa fa-trash'
+                  title='delete'
+                  data-id={cat._id}
+                  onClick={deletingCat}
+                ></i>
+              </td>
             </tr>
-            )
-        )}
+          ))}
         </tbody>
-    </table>
+      </table>
     </div>
   );
 };
