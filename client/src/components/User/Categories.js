@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import axios from '../../axios/logged';
-import requireAuth from '../../hocs/requireAuth'
+import requireAuth from '../../hocs/requireAuth';
+import { Link } from 'react-router-dom';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -44,8 +45,7 @@ const Categories = () => {
         }
     }
 
-
-    return (
+  return (
     <>
         <section className="section section--first section--bg" style={{ backgroundImage:`url(assets/img/section/section.jpg)` }} data-bg="assets/img/section/section.jpg">
             <div className="container" >

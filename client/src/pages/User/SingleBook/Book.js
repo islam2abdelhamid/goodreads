@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import loggedAxios from '../../../axios/logged';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import defaultImage from './defaultImage.jpg';
 
 export const Book = ({ book }) => {
   const [bookStatus, setBookStatus] = useState({ code: -1, status: 'Shelve' });
@@ -35,7 +36,14 @@ export const Book = ({ book }) => {
               <div className='row'>
                 <div className='col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5'>
                   <div className='card__cover'>
-                    <img src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
+                    <img
+                      className='img-thumbnail rounded table__img'
+                      src={
+                        (book.cover && 'http://localhost:5000/' + book.cover) ||
+                        defaultImage
+                      }
+                      alt='book'
+                    />
                   </div>
                 </div>
                 <div className='col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7'>
