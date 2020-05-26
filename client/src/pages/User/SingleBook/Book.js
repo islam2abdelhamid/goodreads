@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import loggedAxios from '../../../axios/logged';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Book = ({ book }) => {
-  console.log(book);
+  const [bookStatus, setBookStatus] = useState({ code: -1, status: 'Shelve' });
+
+  const notify = () => toast('Status Changed !');
+
+  useEffect(() => {
+    console.log(bookStatus);
+    if (bookStatus.code !== -1) {
+      loggedAxios
+        .patch('books/' + book._id + '/change-status', {
+          status: bookStatus.code,
+        })
+        .then(result => {
+          notify();
+        });
+    }
+  }, [bookStatus]);
   return (
     <section className='section details'>
       <div className='details__bg' data-bg='img/home/home__bg.jpg'></div>
@@ -36,7 +54,7 @@ export const Book = ({ book }) => {
                       <li>
                         <span>Author:</span>
                         {book.author && (
-                          <a href='#'>
+                          <a href={'/authors/' + book.author._id}>
                             {book.author.firstName} {book.author.lastName}
                           </a>
                         )}
@@ -52,7 +70,8 @@ export const Book = ({ book }) => {
                         aria-haspopup='true'
                         aria-expanded='false'
                       >
-                        <input type='button' value='Shelve' />
+                        <ToastContainer />
+                        <input type='button' value={bookStatus.status} />
                         <span></span>
                       </div>
 
@@ -60,9 +79,27 @@ export const Book = ({ book }) => {
                         className='filter__item-menu dropdown-menu scrollbar-dropdown'
                         aria-labelledby='filter-quality'
                       >
-                        <li>want to read</li>
-                        <li>reading</li>
-                        <li>read</li>
+                        <li
+                          onClick={() =>
+                            setBookStatus({ code: 2, status: 'want to read' })
+                          }
+                        >
+                          want to read
+                        </li>
+                        <li
+                          onClick={() =>
+                            setBookStatus({ code: 0, status: 'reading' })
+                          }
+                        >
+                          reading
+                        </li>
+                        <li
+                          onClick={() =>
+                            setBookStatus({ code: 1, status: 'read' })
+                          }
+                        >
+                          read
+                        </li>
                       </ul>
                     </div>
                   </div>

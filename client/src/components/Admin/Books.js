@@ -62,7 +62,7 @@ const Books = () => {
                       className='img-thumbnail rounded table__img' 
                       src={(book.cover && 'http://localhost:5000' + book.cover)}/>
                 </td>
-              <td className='align-middle text-light'>{book.category.name}</td>
+              {book.category && <td className='align-middle text-light'>{book.category.name}</td>}
               <td className='align-middle text-light'>{`${book.author.firstName} ${book.author.lastName}`}</td>
               <td className='align-middle text-light' data-id={ book._id }><i className="fa fa-edit" onClick={()=>editing(book)} title='edit' data-toggle="modal" data-target="#exampleModalCenter"></i></td>
               <td className='align-middle text-light'>

@@ -73,7 +73,7 @@ function Books() {
 					<h2 class="section__title">Popular Authors</h2>
           {authors.map(item => (
 					<ul class="author__list">
-						<li><Link to={`/author/${item._id}`}>{item.firstName +" "+ item.lastName}</Link></li>
+						<li><Link to={`/authors/${item._id}`}>{item.firstName +" "+ item.lastName}</Link></li>
 					</ul>
            ))}
 				</div>

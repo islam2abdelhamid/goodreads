@@ -8,6 +8,10 @@ const SingleBook = props => {
   const [book, setBook] = useState(null);
   const [reviews, setReviews] = useState(null);
   useEffect(() => {
+    getReviews();
+  }, []);
+
+  const getReviews = () => {
     loggedAxios
       .get('/books/' + props.match.params.id)
       .then(result => {
@@ -20,13 +24,14 @@ const SingleBook = props => {
       .catch(err => {
         props.history.push('/404');
       });
-  }, []);
-
+  };
   return (
     book && (
       <>
         <Book book={book} />
-        {reviews && <Reviews reviews={reviews} />}
+        {reviews && (
+          <Reviews reviews={reviews} book={book} getReviews={getReviews} />
+        )}
       </>
     )
   );

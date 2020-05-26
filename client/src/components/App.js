@@ -14,11 +14,11 @@ import Register from '../pages/Guest/Register';
 import Books from '../pages/Guest/Books';
 import Book from '../pages/User/SingleBook/SingleBook';
 import AdminHome from '../pages/Admin/index';
-import AllCategories from '../components/User/Categories'
-import AllAuthors from '../components/User/Authors'
-import AllBooks from '../components/User/Books'
-import AuthorPage from '../components/User/AuthorPage'
-import Category from '../components/User/Category'
+import AllCategories from '../components/User/Categories';
+import AllAuthors from '../components/User/Authors';
+import AllBooks from '../components/User/Books';
+import AuthorPage from '../components/User/AuthorPage';
+import Category from '../components/User/Category';
 import FourOFour from '../pages/404';
 
 const App = () => {
@@ -51,12 +51,12 @@ const App = () => {
           <Route path='/admin' component={AdminHome} />
           <Route path='/categories/:id' component={Category} />
           <Route path='/categories' component={AllCategories} />
-          <Route path='/authors' component={AllAuthors} />
-          <Route path='/author/:id' exact component={AuthorPage}/>
+          <Route path='/authors' exact component={AllAuthors} />
+          <Route path='/authors/:id' exact component={AuthorPage} />
 
           <Route path='' component={FourOFour} />
         </Switch>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </>
   );
