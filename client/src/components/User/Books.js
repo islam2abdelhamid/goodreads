@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, {  useState, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAuth from '../../hocs/requireAuth';
 import { Link } from 'react-router-dom';
@@ -6,7 +6,6 @@ import defaultImage from './defaultImage.jpg';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(6);
   const [activeLinkIndex, setActiveLinkIndex] = useState(1);
@@ -51,6 +50,8 @@ const Books = () => {
 
   //paginate
   const paginate = pageNo => setCurrentPage(pageNo);
+  const paginatePrev = () => setCurrentPage(currentPage - 1);
+  const paginateNext = () => setCurrentPage(currentPage + 1);
 
   return (
     <>
@@ -123,6 +124,15 @@ const Books = () => {
             </div>
             <div className='col-12'>
               <ul className='paginator paginator--list'>
+              <li class="paginator__item paginator__item--prev">
+                <a
+                 onClick={e => {
+                  e.preventDefault();
+                  paginatePrev();
+                  setActiveLinkIndex(currentPage - 1);
+                }}
+                 href="#"><i class="icon ion-ios-arrow-back"></i></a>
+              </li>
                 {pageNumbers.map(number => (
                   <li
                     key={number}
@@ -144,6 +154,15 @@ const Books = () => {
                     </a>
                   </li>
                 ))}
+                <li class="paginator__item paginator__item--next">
+                  <a 
+                   onClick={e => {
+                    e.preventDefault();
+                    paginateNext();
+                    setActiveLinkIndex(currentPage + 1);
+                  }}
+                  href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+                </li>
               </ul>
             </div>
           </div>

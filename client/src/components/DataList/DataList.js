@@ -2,32 +2,33 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import requireAuth from '../../hocs/requireAuth';
 import axios from '../../axios/logged';
 import { Redirect } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const DataList = (props) => {
     const [books, setBooks] = useState([]);
     const [choice, setChoice] = useState('');
     useEffect(() => {
         axios
-        .get('http://localhost:5000')
-        .then((result) => {
-          setBooks(result.data.books)
-        })
-        .catch((err) => {
+            .get('http://localhost:5000')
+            .then((result) => {
+                setBooks(result.data.books)
+            })
+            .catch((err) => {
 
-        });
-      }, [])
+            });
+    }, [])
 
-      useEffect(() => {
+    useEffect(() => {
         axios
-        .get('http://localhost:5000/'+choice)
-        .then((result) => {
-            setBooks([])
-            setBooks(result.data.books)
-        })
-        .catch((err) => {
+            .get('http://localhost:5000/' + choice)
+            .then((result) => {
+                setBooks([])
+                setBooks(result.data.books)
+            })
+            .catch((err) => {
 
-        });
-      }, [choice])
+            });
+    }, [choice])
 
 
     const myStyle = {
@@ -76,9 +77,9 @@ const DataList = (props) => {
                                     <div className='filter__item' id='filter__genre'>
                                         <span className='filter__item-label'>Books To View:</span>
 
-                                      
 
-                                        <select className="form-control" onChange={(e)=>{setChoice(e.target.value)}} id="listing">
+
+                                        <select className="form-control" onChange={(e) => { setChoice(e.target.value) }} id="listing">
                                             <option value="">ALL</option>
                                             <option value="Currently">Currently Reading</option>
                                             <option value="Read">Read</option>
@@ -117,34 +118,48 @@ const DataList = (props) => {
                             <td className='align-middle text-light'>
                                 <img
                                     className='img-thumbnail rounded table__img'
-                                    src="https://picsum.photos/200/300" />
+                                    src={(book.cover && 'http://localhost:5000' + book.cover)} />
                             </td>
-                            <td className='align-middle editable text-light'>{book.book.name}</td>
-                            <td className='align-middle text-light'>{book.book.author.firstName} {book.book.author.lastName}</td>
+                            <td className='align-middle editable text-light'>
+                                <Link to={'/books/' + book.book._id}>
+                                    {book.book.name}
+                                </Link>
+                            </td>
+                            <td className='align-middle text-light'>
+                                <Link to={'/authors/' + book.book.author._id}>
+                                    {book.book.author.firstName} {book.book.author.lastName}
+                                </Link>
+                            </td>
                             <td className='align-middle text-light' >
-                                {book.avgRate ? book.book.avgRate : 0}
+                                <span className='card__rate'>
+                                    <i className='icon ion-ios-star'></i> {book.book.rate || '0'}
+                                </span>
                             </td>
 
                             <td className='align-middle text-light' >
-                                {book.rate ? book.book.rate : 0}
+                                {/* {book.rate ? book.book.rate : 0} */}
                                 {/* {book.status} */}
+
+                                <span className='card__rate'>
+                                    <i className='icon ion-ios-star'></i> {book.rate || '0'}
+                                </span>
                             </td>
 
                             <td className='align-middle text-light' >
 
 
-                                        <select className="form-control" onChange={handleChangeStatus} id={book.book._id}>
-                                            <optgroup label="Select Status">
+                                <select className="form-control" onChange={handleChangeStatus} id={book.book._id}>
+                                    <optgroup label="Select Status">
 
-                                                <option></option>
-                                                <option value="0">Currently Reading</option>
-                                                <option value="1">Read</option>
-                                                <option value="2">Want To Read</option>
-                                            </optgroup>
+                                        <option></option>
+                                        <option value="0">Currently Reading</option>
+                                        <option value="1">Read</option>
+                                        <option value="2">Want To Read</option>
+                                    </optgroup>
 
-                                        </select>
-                                    
-                                    
+                                </select>
+
+
 
 
                             </td>

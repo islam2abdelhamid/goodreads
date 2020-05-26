@@ -2,6 +2,7 @@ import React from 'react';
 import requireAuth from '../../hocs/requireAuth';
 import axios from '../../axios/logged';
 import { Redirect } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const DataList = (props) => {
 
@@ -9,14 +10,14 @@ const DataList = (props) => {
         padding: "0px",
     }
     const books = props.books;
-    
+
 
     const handleChangeListing = (e) => {
         // console.log(e.target.value + " hihihi " + e.target.id)
         window.location.replace(`http://localhost:5001/${e.target.value}`);
     }
-  
-    
+
+
 
     return (
         <div className='sign section--bg' data-bg='img/section/section.jpg' style={myStyle}>
@@ -102,12 +103,22 @@ const DataList = (props) => {
                             <td className='align-middle text-light'>
                                 <img
                                     class='img-thumbnail rounded table__img'
-                                    src="https://picsum.photos/200/300" />
+                                    src={(book.cover && 'http://localhost:5000' + book.cover)} />
                             </td>
-                            <td className='align-middle editable text-light'>{book.name}</td>
-                            <td className='align-middle text-light'>{book.author.firstName} {book.author.lastName}</td>
+                            <td className='align-middle editable text-light'>
+                                <Link to={'/books/' + book._id}>
+                                    {book.name}
+                                </Link>
+                            </td>
+                            <td className='align-middle text-light'>
+                                <Link to={'/authors/' + book.author._id}>
+                                    {book.author.firstName} {book.author.lastName}
+                                </Link>
+                            </td>
                             <td className='align-middle text-light' >
-                                {book.avgRate ? book.book.avgRate : 0}
+                                <span className='card__rate'>
+                                    <i className='icon ion-ios-star'></i> {book.rate || '0'}
+                                </span>
                             </td>
 
 

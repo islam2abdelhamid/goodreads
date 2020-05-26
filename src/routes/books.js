@@ -16,7 +16,7 @@ router.get('/', userAuth, async (req, res, next) => {
   try {
     const pagination = req.query.pagination
       ? parseInt(req.query.pagination)
-      : 10;
+      : 30;
     const page = req.query.page ? parseInt(req.query.page) : 1;
     books = await Book.find({})
       .skip((page - 1) * pagination)

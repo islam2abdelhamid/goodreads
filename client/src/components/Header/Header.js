@@ -23,7 +23,7 @@ export const Header = ({ isAdmin, isLoaded, user }) => {
             <div className='col-12'>
               <div className='header__content'>
                 <Link to='/' className='header__logo logo'>
-                  Book<span>Flix</span>
+                  Good<span>Reads</span>
                 </Link>
 
                 <ul className='header__nav'>
