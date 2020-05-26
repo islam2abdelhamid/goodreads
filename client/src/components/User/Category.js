@@ -62,9 +62,9 @@ const Category = props => {
                           <div className="card card--big" style={styles.itemCard} key={book._id}>
                                   <div className="card__cover">
                                       <img className='img-thumbnail rounded table__img' style={{height:'500px'}} src={(book.cover && 'http://localhost:5000' + book.cover) || defaultImage} alt='No Cover'/>
-                                      <a href={'/books/' + book._id} className="card__play">
+                                      <Link to={'/books/' + book._id} className="card__play">
                                           <i className="icon ion-ios-eye"></i>
-                                      </a>
+                                      </Link>
                                   </div>
                                   <div  className="card__content">
                                       <h3 className="card__title"><a href={'/books/' + book._id}>{book.name}</a></h3>
