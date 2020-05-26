@@ -143,6 +143,11 @@ router.post('/:id/reviews', userAuth, async (req, res, next) => {
     review.rate = rate;
     review.comment = comment;
   }
+  const userBook = req.user.books.find(book => {
+    return String(book.bookId) === String(req.params.id);
+  });
+  userBook.rate = rate;
+  await req.user.save();
   await review.save();
   res.send();
 });
@@ -169,6 +174,7 @@ router.patch('/:id/change-status', userAuth, async (req, res, next) => {
     req.user.books.push({
       bookId: req.params.id,
       status: req.body.status,
+      rate: 0
     });
   } else if (book.status !== req.body.status) {
     book.status = req.body.status;
