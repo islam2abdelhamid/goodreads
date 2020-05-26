@@ -1,11 +1,10 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, {  useState, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAuth from '../../hocs/requireAuth';
 import { Link } from 'react-router-dom';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(6);
   const [activeLinkIndex, setActiveLinkIndex] = useState(1);
@@ -80,7 +79,7 @@ const Books = () => {
                   key={book._id}
                 >
                   <div className='card__cover'>
-                    <img style={{height:'450px'}} src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
+                    <img style={{height:'500px'}} src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
                     <Link to={'/books/' + book._id} className='card__play'>
                       <i className='icon ion-ios-eye'></i>
                     </Link>

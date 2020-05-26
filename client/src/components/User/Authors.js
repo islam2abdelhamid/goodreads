@@ -4,7 +4,14 @@ import requireAuth from '../../hocs/requireAuth'
 import {Link} from "react-router-dom"
 const Authors = () => {
     const [authors, setAuthors] = useState([]);
-    const token = localStorage.getItem('goodReadsToken');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [booksPerPage, setBooksPerPage] = useState(6);
+    const [activeLinkIndex, setActiveLinkIndex] = useState(1);
+    const pageNumbers = [];
+
+    for (let i = 1; i <= Math.ceil(authors.length / booksPerPage); i++) {
+        pageNumbers.push(i);
+    }
     useEffect(() => {
         axios
           .get('/authors')
@@ -34,6 +41,16 @@ const Authors = () => {
         }
     };
 
+    //get Current Books
+    const indexOfLastBook = booksPerPage * currentPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentAuthors = authors.slice(indexOfFirstBook, indexOfLastBook);
+
+    //paginate
+    const paginate = pageNo => setCurrentPage(pageNo);
+    const paginatePrev = () => setCurrentPage(currentPage - 1);
+    const paginateNext = () => setCurrentPage(currentPage + 1);
+
 
     return (
     <>  
@@ -52,10 +69,10 @@ const Authors = () => {
             <div className="container">
                 <div className="row">
                     <div className="row" style={styles.container}>
-                            {authors.map((author)=>(
+                            {currentAuthors.map((author)=>(
                                 <div style={styles.item}  key={author._id}>
                                         <div className="card__cover">
-                                            <img src={(author.avatar && 'http://localhost:5000' + author.avatar)} alt="No Avatar"/>
+                                            <img style={{height:'500px'}} src={(author.avatar && 'http://localhost:5000' + author.avatar)} alt="No Avatar"/>
                                             <Link to={`/authors/${author._id}`} className="card__play">
                                                 <i className="icon ion-ios-eye"></i>
                                             </Link>
@@ -69,8 +86,50 @@ const Authors = () => {
                     </div>
                 </div>
             </div>
-	</div>
-        
+        </div>
+        <div className='col-12'>
+            <ul className='paginator paginator--list'>
+            <li class="paginator__item paginator__item--prev">
+            <a
+                onClick={e => {
+                e.preventDefault();
+                paginatePrev();
+                setActiveLinkIndex(currentPage - 1);
+            }}
+                href="#"><i class="icon ion-ios-arrow-back"></i></a>
+            </li>
+            {pageNumbers.map(number => (
+                <li
+                key={number}
+                className={
+                    activeLinkIndex === number
+                    ? 'paginator__item paginator__item--active'
+                    : 'paginator__item'
+                }
+                >
+                <a
+                    onClick={e => {
+                    e.preventDefault();
+                    paginate(number);
+                    setActiveLinkIndex(number);
+                    }}
+                    href='!#'
+                >
+                    {number}
+                </a>
+                </li>
+            ))}
+            <li class="paginator__item paginator__item--next">
+                <a 
+                onClick={e => {
+                e.preventDefault();
+                paginateNext();
+                setActiveLinkIndex(currentPage + 1);
+                }}
+                href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+            </li>
+            </ul>
+        </div>
     </>
   );
 };
