@@ -4,16 +4,16 @@ import requireAuth from '../../hocs/requireAuth'
 
 const Category = props => {
     const [category, setCategory] = useState(null);
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [booksPerPage, setBooksPerPage] = useState(2);
-    // const [activeLinkIndex, setActiveLinkIndex] = useState(1);
-    // const pageNumbers = [];
+    const [currentPage, setCurrentPage] = useState(1);
+    const [booksPerPage, setBooksPerPage] = useState(6);
+    const [activeLinkIndex, setActiveLinkIndex] = useState(1);
+    const pageNumbers = [];
     
-    // if(category){
-    // for(let i = 1 ; i <= Math.ceil(category.books.length / booksPerPage ); i++){
-    //       pageNumbers.push(i);
-    //   }
-    // }
+    if(category){
+    for(let i = 1 ; i <= Math.ceil(category.books.length / booksPerPage ); i++){
+          pageNumbers.push(i);
+      }
+    }
    
     useEffect(() => {
         axios
@@ -47,15 +47,19 @@ const Category = props => {
     };
     
     //get Current Books
-    // const indexOfLastBook = booksPerPage*currentPage;
-    // const indexOfFirstBook = indexOfLastBook-booksPerPage;
-    // let currentBooks = null;
-    // if(category){
-    //      currentBooks = category.books.slice(indexOfFirstBook,indexOfLastBook);
-    // }
+    const indexOfLastBook = booksPerPage*currentPage;
+    const indexOfFirstBook = indexOfLastBook-booksPerPage;
+    let currentBooks = null;
+    if(category){
+         currentBooks = category.books.slice(indexOfFirstBook,indexOfLastBook);
+    }
+    console.log(indexOfFirstBook);
+    console.log(indexOfLastBook);
+    console.log(currentBooks);
+
 
     //paginate
-    // const paginate = (pageNo) => setCurrentPage(pageNo);
+    const paginate = (pageNo) => setCurrentPage(pageNo);
 
     return (
         category && (
@@ -73,9 +77,8 @@ const Category = props => {
         </section>
         <div className="catalog" >
 		<div className="container" >
-			<div className="row">
                 <div className="row" style={styles.container}>
-                        {category.books.map((book)=>(
+                        {currentBooks.map((book)=>(
                             <div className="card card--big" style={styles.itemCard} key={book._id}>
                                     <div className="card__cover">
                                         <img style={{height:'500px'}} src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover'/>
@@ -93,7 +96,7 @@ const Category = props => {
                         )
                     )}
                 </div>
-                {/* <div className="col-12">
+                <div className="col-12">
 
 					<ul className="paginator paginator--list">
                     <li className="paginator__item paginator__item--prev">
@@ -106,8 +109,7 @@ const Category = props => {
 							<a href="#"><i className="icon ion-ios-arrow-forward"></i></a>
                     </li>
 					</ul>
-				</div> */}
-			</div>
+				</div>
 		</div>
 	</div>
         

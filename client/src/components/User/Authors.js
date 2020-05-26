@@ -5,11 +5,11 @@ import {Link} from "react-router-dom"
 const Authors = () => {
     const [authors, setAuthors] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [booksPerPage, setBooksPerPage] = useState(6);
+    const [authorsPerPage, setAuthorsPerPage] = useState(6);
     const [activeLinkIndex, setActiveLinkIndex] = useState(1);
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(authors.length / booksPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(authors.length / authorsPerPage); i++) {
         pageNumbers.push(i);
     }
     useEffect(() => {
@@ -41,15 +41,25 @@ const Authors = () => {
         }
     };
 
-    //get Current Books
-    const indexOfLastBook = booksPerPage * currentPage;
-    const indexOfFirstBook = indexOfLastBook - booksPerPage;
-    const currentAuthors = authors.slice(indexOfFirstBook, indexOfLastBook);
+    //get Current Authors
+    const indexOfLastAuthor = authorsPerPage * currentPage;
+    const indexOfFirstAuthor= indexOfLastAuthor - authorsPerPage;
+    const currentAuthors = authors.slice(indexOfFirstAuthor, indexOfLastAuthor);
 
     //paginate
     const paginate = pageNo => setCurrentPage(pageNo);
-    const paginatePrev = () => setCurrentPage(currentPage - 1);
-    const paginateNext = () => setCurrentPage(currentPage + 1);
+    const paginatePrev = () => {
+        if(currentPage != 1){
+          setCurrentPage(currentPage - 1);
+          setActiveLinkIndex(currentPage - 1);
+        }
+      }
+    const paginateNext = () => {
+    if(currentPage != pageNumbers.length){
+        setCurrentPage(currentPage + 1);
+        setActiveLinkIndex(currentPage + 1);
+        }
+    }
 
 
     return (
@@ -94,7 +104,6 @@ const Authors = () => {
                 onClick={e => {
                 e.preventDefault();
                 paginatePrev();
-                setActiveLinkIndex(currentPage - 1);
             }}
                 href="#"><i class="icon ion-ios-arrow-back"></i></a>
             </li>
@@ -124,7 +133,6 @@ const Authors = () => {
                 onClick={e => {
                 e.preventDefault();
                 paginateNext();
-                setActiveLinkIndex(currentPage + 1);
                 }}
                 href="#"><i class="icon ion-ios-arrow-forward"></i></a>
             </li>
