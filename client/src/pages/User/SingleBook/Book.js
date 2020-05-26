@@ -35,7 +35,7 @@ export const Book = ({ book }) => {
               <div className='row'>
                 <div className='col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5'>
                   <div className='card__cover'>
-                    <img src='https://picsum.photos/200/300' alt='' />
+                    <img src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
                   </div>
                 </div>
                 <div className='col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7'>

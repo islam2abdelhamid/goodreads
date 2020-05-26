@@ -78,7 +78,7 @@ const Books = () => {
                   key={book._id}
                 >
                   <div className='card__cover'>
-                    <img src='https://picsum.photos/200/300' alt='' />
+                    <img src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
                     <Link to={'/books/' + book._id} className='card__play'>
                       <i className='icon ion-ios-eye'></i>
                     </Link>

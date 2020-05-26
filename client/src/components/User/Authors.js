@@ -55,7 +55,7 @@ const Authors = () => {
                             {authors.map((author)=>(
                                 <div style={styles.item}  key={author._id}>
                                         <div className="card__cover">
-                                            <img src="https://picsum.photos/200/300" alt=""/>
+                                            <img src={(author.avatar && 'http://localhost:5000' + author.avatar)} alt="No Avatar"/>
                                             <Link to={`/authors/${author._id}`} className="card__play">
                                                 <i className="icon ion-ios-eye"></i>
                                             </Link>
