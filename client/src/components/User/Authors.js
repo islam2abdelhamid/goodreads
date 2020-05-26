@@ -1,40 +1,67 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import axios from '../../axios/logged';
 import requireAuth from '../../hocs/requireAuth';
-import { Link } from 'react-router-dom';
+import {Link} from "react-router-dom";
 import defaultImage from './defaultImage.jpg';
-
 const Authors = () => {
-  const [authors, setAuthors] = useState([]);
-  const token = localStorage.getItem('goodReadsToken');
-  useEffect(() => {
-    axios
-      .get('/authors')
-      .then(result => {
-        setAuthors(authors.concat(result.data));
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+    const [authors, setAuthors] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [authorsPerPage, setAuthorsPerPage] = useState(6);
+    const [activeLinkIndex, setActiveLinkIndex] = useState(1);
+    const pageNumbers = [];
 
-  const styles = {
-    container: {
-      flex: 1,
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      flexWrap: true,
-    },
-    item: {
-      margin: '10px',
-      padding: '10px',
-      width: '28%',
-    },
-    section: {
-      backgroundImage: `url("assets/img/section/section.jpg")`,
-    },
-  };
+    for (let i = 1; i <= Math.ceil(authors.length / authorsPerPage); i++) {
+        pageNumbers.push(i);
+    }
+    useEffect(() => {
+        axios
+          .get('/authors')
+          .then((result) => {
+            setAuthors(authors.concat(result.data))
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, [])
+    
+      const styles = {
+        container: {
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexWrap:true,
+        },
+        item: {
+            margin: '10px',
+            padding: '10px',
+            width:'28%'
+        },
+        section: {
+            backgroundImage: `url("assets/img/section/section.jpg")`,
+        }
+    };
+
+    //get Current Authors
+    const indexOfLastAuthor = authorsPerPage * currentPage;
+    const indexOfFirstAuthor= indexOfLastAuthor - authorsPerPage;
+    const currentAuthors = authors.slice(indexOfFirstAuthor, indexOfLastAuthor);
+
+    //paginate
+    const paginate = pageNo => setCurrentPage(pageNo);
+    const paginatePrev = () => {
+        if(currentPage != 1){
+          setCurrentPage(currentPage - 1);
+          setActiveLinkIndex(currentPage - 1);
+        }
+      }
+    const paginateNext = () => {
+    if(currentPage != pageNumbers.length){
+        setCurrentPage(currentPage + 1);
+        setActiveLinkIndex(currentPage + 1);
+        }
+    }
+
 
   return (
     <>
@@ -56,11 +83,12 @@ const Authors = () => {
         <div className='container'>
           <div className='row'>
             <div className='row' style={styles.container}>
-              {authors.map(author => (
+              {currentAuthors.map(author => (
                 <div style={styles.item} key={author._id}>
                   <div className='card__cover'>
                     <img
                       className='img-thumbnail rounded table__img'
+                      style={{height:'500px'}}
                       src={
                         (author.avatar &&
                           'http://localhost:5000' + author.avatar) ||
@@ -87,7 +115,48 @@ const Authors = () => {
             </div>
           </div>
         </div>
-      </div>
+        </div>
+        <div className='col-12'>
+            <ul className='paginator paginator--list'>
+            <li class="paginator__item paginator__item--prev">
+            <a
+                onClick={e => {
+                e.preventDefault();
+                paginatePrev();
+            }}
+                href="#"><i class="icon ion-ios-arrow-back"></i></a>
+            </li>
+            {pageNumbers.map(number => (
+                <li
+                key={number}
+                className={
+                    activeLinkIndex === number
+                    ? 'paginator__item paginator__item--active'
+                    : 'paginator__item'
+                }
+                >
+                <a
+                    onClick={e => {
+                    e.preventDefault();
+                    paginate(number);
+                    setActiveLinkIndex(number);
+                    }}
+                    href='!#'
+                >
+                    {number}
+                </a>
+                </li>
+            ))}
+            <li class="paginator__item paginator__item--next">
+                <a 
+                onClick={e => {
+                e.preventDefault();
+                paginateNext();
+                }}
+                href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+            </li>
+            </ul>
+        </div>
     </>
   );
 };

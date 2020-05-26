@@ -50,8 +50,18 @@ const Books = () => {
 
   //paginate
   const paginate = pageNo => setCurrentPage(pageNo);
-  const paginatePrev = () => setCurrentPage(currentPage - 1);
-  const paginateNext = () => setCurrentPage(currentPage + 1);
+  const paginatePrev = () => {
+    if(currentPage != 1){
+      setCurrentPage(currentPage - 1);
+      setActiveLinkIndex(currentPage - 1);
+    }
+  }
+  const paginateNext = () => {
+    if(currentPage != pageNumbers.length){
+      setCurrentPage(currentPage + 1);
+      setActiveLinkIndex(currentPage + 1);
+    }
+  }
 
   return (
     <>
@@ -82,6 +92,7 @@ const Books = () => {
                   <div className='card__cover'>
                     <img
                       className='img-thumbnail rounded table__img'
+                      style={{height:'500px'}}
                       src={
                         (book.cover && 'http://localhost:5000/' + book.cover) ||
                         defaultImage
@@ -129,7 +140,6 @@ const Books = () => {
                  onClick={e => {
                   e.preventDefault();
                   paginatePrev();
-                  setActiveLinkIndex(currentPage - 1);
                 }}
                  href="#"><i class="icon ion-ios-arrow-back"></i></a>
               </li>
@@ -159,7 +169,6 @@ const Books = () => {
                    onClick={e => {
                     e.preventDefault();
                     paginateNext();
-                    setActiveLinkIndex(currentPage + 1);
                   }}
                   href="#"><i class="icon ion-ios-arrow-forward"></i></a>
                 </li>

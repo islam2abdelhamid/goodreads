@@ -5,59 +5,36 @@ import { Link } from 'react-router-dom';
 import defaultImage from './defaultImage.jpg';
 
 const Category = props => {
-  const [category, setCategory] = useState(null);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [booksPerPage, setBooksPerPage] = useState(2);
-  // const [activeLinkIndex, setActiveLinkIndex] = useState(1);
-  // const pageNumbers = [];
-
-  // if(category){
-  // for(let i = 1 ; i <= Math.ceil(category.books.length / booksPerPage ); i++){
-  //       pageNumbers.push(i);
-  //   }
-  // }
-
-  useEffect(() => {
-    axios
-      .get('/categories/' + props.match.params.id)
-      .then(result => {
-        setCategory(result.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
-  console.log(category);
-
-  const styles = {
-    container: {
-      flex: 1,
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      flexWrap: true,
-    },
-    itemCard: {
-      margin: '10px',
-      padding: '10px',
-      width: '28%',
-    },
-    section: {
-      backgroundImage: `url("assets/img/section/section.jpg")`,
-    },
-  };
-
-  //get Current Books
-  // const indexOfLastBook = booksPerPage*currentPage;
-  // const indexOfFirstBook = indexOfLastBook-booksPerPage;
-  // let currentBooks = null;
-  // if(category){
-  //      currentBooks = category.books.slice(indexOfFirstBook,indexOfLastBook);
-  // }
-
-  //paginate
-  // const paginate = (pageNo) => setCurrentPage(pageNo);
+    const [category, setCategory] = useState(null);
+    
+    useEffect(() => {
+        axios
+        .get('/categories/' + props.match.params.id)
+        .then((result) => {
+            setCategory(result.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, [])
+    
+      const styles = {
+        container: {
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexWrap:true,
+        },
+        itemCard: {
+            margin: '10px',
+            padding: '10px',
+            width:'28%',
+        },
+        section: {
+            backgroundImage: `url("assets/img/section/section.jpg")`,
+        }
+    };
 
   return (
     category && (
@@ -76,60 +53,32 @@ const Category = props => {
             </div>
           </div>
         </section>
-        <div className='catalog'>
-          <div className='container'>
-            <div className='row'>
-              <div className='row' style={styles.container}>
-                {category.books.map(book => (
-                  <div
-                    className='card card--big'
-                    style={styles.itemCard}
-                    key={book._id}
-                  >
-                    <div className='card__cover'>
-                      <img
-                        className='img-thumbnail rounded table__img'
-                        src={
-                          (book.cover &&
-                            'http://localhost:5000/' + book.cover) ||
-                          defaultImage
-                        }
-                        alt='book'
-                      />
-                      <Link to={'/books/' + book._id} className='card__play'>
-                        <i className='icon ion-ios-eye'></i>
-                      </Link>
-                    </div>
-                    <div className='card__content'>
-                      <h3 className='card__title'>
-                        <a href={'/books/' + book._id}>{book.name}</a>
-                      </h3>
-                      <span className='card__rate'>
-                        <i className='icon ion-ios-star'></i> {book.rate || '0'}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* <div className="col-12">
-
-					<ul className="paginator paginator--list">
-                    <li className="paginator__item paginator__item--prev">
-							<a href="#"><i className="icon ion-ios-arrow-back"></i></a>
-						</li>
-                    {pageNumbers.map((number)=>(
-                        <li  key={number} className={activeLinkIndex === number ? 'paginator__item paginator__item--active' : 'paginator__item'}><a onClick={(e) => {e.preventDefault();paginate(number);setActiveLinkIndex(number);}} href="!#">{number}</a></li>
-                    ))}
-                    <li className="paginator__item paginator__item--next">
-							<a href="#"><i className="icon ion-ios-arrow-forward"></i></a>
-                    </li>
-					</ul>
-				</div> */}
-            </div>
-          </div>
-        </div>
-      </>
-    )
+        <div className="catalog" >
+		<div className="container" >
+                <div className="row" style={styles.container}>
+                        {category.books.map((book)=>(
+                            <div className="card card--big" style={styles.itemCard} key={book._id}>
+                                    <div className="card__cover">
+                                        <img className='img-thumbnail rounded table__img' style={{height:'500px'}} src={(book.cover && 'http://localhost:5000' + book.cover) || defaultImage} alt='No Cover'/>
+                                        <a href={'/books/' + book._id} className="card__play">
+                                            <i className="icon ion-ios-eye"></i>
+                                        </a>
+                                    </div>
+                                    <div  className="card__content">
+                                         <h3 className="card__title"><a href={'/books/' + book._id}>{book.name}</a></h3>
+                                        <span className='card__rate'>
+                                            <i className='icon ion-ios-star'></i> {book.rate || '0'}
+                                        </span>
+                                    </div>
+                            </div>
+                        )
+                    )}
+                </div>
+		</div>
+	</div>
+        
+    </>
+        )
   );
 };
 export default requireAuth(Category);
