@@ -3,6 +3,7 @@ const { Router } = require('express');
 const adminAuth = require('../middleware/adminAuth');
 const userAuth = require('../middleware/userAuth');
 const Category = require('../models/Category');
+const Book = require('../models/Book');
 const router = new Router();
 
 router.get('', userAuth, async (req, res, next) => {
