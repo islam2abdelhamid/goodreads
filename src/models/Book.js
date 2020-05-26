@@ -36,11 +36,11 @@ bookSchema.post('save', async function () {
   const book = this;
   try {
     await Author.findByIdAndUpdate(book.author, {
-      $push: { books: book.id },
+      $addToSet: { books: book.id },
     });
 
     await Category.findByIdAndUpdate(book.category, {
-      $push: { books: book.id },
+      $addToSet: { books: book.id },
     });
   } catch (err) {
     throw new Error(err);

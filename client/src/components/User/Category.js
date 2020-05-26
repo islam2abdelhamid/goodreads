@@ -18,6 +18,8 @@ const Category = props => {
         });
     }, [])
     
+    console.log(category);
+
       const styles = {
         container: {
             flex: 1,
@@ -54,28 +56,28 @@ const Category = props => {
           </div>
         </section>
         <div className="catalog" >
-		<div className="container" >
-                <div className="row" style={styles.container}>
-                        {category.books.map((book)=>(
-                            <div className="card card--big" style={styles.itemCard} key={book._id}>
-                                    <div className="card__cover">
-                                        <img className='img-thumbnail rounded table__img' style={{height:'500px'}} src={(book.cover && 'http://localhost:5000' + book.cover) || defaultImage} alt='No Cover'/>
-                                        <a href={'/books/' + book._id} className="card__play">
-                                            <i className="icon ion-ios-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div  className="card__content">
-                                         <h3 className="card__title"><a href={'/books/' + book._id}>{book.name}</a></h3>
-                                        <span className='card__rate'>
-                                            <i className='icon ion-ios-star'></i> {book.rate || '0'}
-                                        </span>
-                                    </div>
-                            </div>
-                        )
-                    )}
-                </div>
-		</div>
-	</div>
+          <div className="container" >
+              <div className="row" style={styles.container}>
+                      {category.books.map((book)=>(
+                          <div className="card card--big" style={styles.itemCard} key={book._id}>
+                                  <div className="card__cover">
+                                      <img className='img-thumbnail rounded table__img' style={{height:'500px'}} src={(book.cover && 'http://localhost:5000' + book.cover) || defaultImage} alt='No Cover'/>
+                                      <a href={'/books/' + book._id} className="card__play">
+                                          <i className="icon ion-ios-eye"></i>
+                                      </a>
+                                  </div>
+                                  <div  className="card__content">
+                                      <h3 className="card__title"><a href={'/books/' + book._id}>{book.name}</a></h3>
+                                      <span className='card__rate'>
+                                          <i className='icon ion-ios-star'></i> {book.rate || '0'}
+                                      </span>
+                                  </div>
+                          </div>
+                      )
+                  )}
+              </div>
+          </div>
+        </div>
         
     </>
         )
