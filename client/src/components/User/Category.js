@@ -76,9 +76,9 @@ const Category = props => {
 			<div className="row">
                 <div className="row" style={styles.container}>
                         {category.books.map((book)=>(
-                            <div className="card card--big" style={styles.itemCard}  key={book._id}>
+                            <div className="card card--big" style={styles.itemCard} key={book._id}>
                                     <div className="card__cover">
-                                        <img src="https://picsum.photos/200/300" alt=""/>
+                                        <img src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover'/>
                                         <a href={'/books/' + book._id} className="card__play">
                                             <i className="icon ion-ios-eye"></i>
                                         </a>

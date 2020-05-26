@@ -30,8 +30,8 @@ const Categories = () => {
             </div>
         </section>
         <div id="categories">
-        <div class="container">
-            <div class="row">
+        <div className="container">
+            <div className="row">
                 {categories.map((cat)=>(
                      <div className="col-md-3" key={cat._id}>
                         <div className="category__card">

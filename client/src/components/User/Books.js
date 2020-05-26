@@ -50,6 +50,8 @@ const Books = () => {
 
   //paginate
   const paginate = pageNo => setCurrentPage(pageNo);
+  const paginatePrev = () => setCurrentPage(currentPage - 1);
+  const paginateNext = () => setCurrentPage(currentPage + 1);
 
   return (
     <>
@@ -78,7 +80,7 @@ const Books = () => {
                   key={book._id}
                 >
                   <div className='card__cover'>
-                    <img src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
+                    <img style={{height:'450px'}} src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
                     <Link to={'/books/' + book._id} className='card__play'>
                       <i className='icon ion-ios-eye'></i>
                     </Link>
@@ -115,6 +117,15 @@ const Books = () => {
             </div>
             <div className='col-12'>
               <ul className='paginator paginator--list'>
+              <li class="paginator__item paginator__item--prev">
+                <a
+                 onClick={e => {
+                  e.preventDefault();
+                  paginatePrev();
+                  setActiveLinkIndex(currentPage - 1);
+                }}
+                 href="#"><i class="icon ion-ios-arrow-back"></i></a>
+              </li>
                 {pageNumbers.map(number => (
                   <li
                     key={number}
@@ -136,6 +147,15 @@ const Books = () => {
                     </a>
                   </li>
                 ))}
+                <li class="paginator__item paginator__item--next">
+                  <a 
+                   onClick={e => {
+                    e.preventDefault();
+                    paginateNext();
+                    setActiveLinkIndex(currentPage + 1);
+                  }}
+                  href="#"><i class="icon ion-ios-arrow-forward"></i></a>
+                </li>
               </ul>
             </div>
           </div>
