@@ -64,7 +64,7 @@ const Categories = () => {
                     {currentCategories.map((cat)=>(
                         <div className="col-md-3" key={cat._id}>
                             <div className="category__card">
-                                <h2><a  href={'/categories/' + cat._id}>{cat.name}</a></h2>
+                                <h2><Link  to={'/categories/' + cat._id}>{cat.name}</Link></h2>
                             </div>
                         </div>
                         )
