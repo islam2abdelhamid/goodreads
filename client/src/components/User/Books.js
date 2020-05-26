@@ -2,6 +2,7 @@ import React, {  useState, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAuth from '../../hocs/requireAuth';
 import { Link } from 'react-router-dom';
+import defaultImage from './defaultImage.jpg';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -49,8 +50,18 @@ const Books = () => {
 
   //paginate
   const paginate = pageNo => setCurrentPage(pageNo);
-  const paginatePrev = () => setCurrentPage(currentPage - 1);
-  const paginateNext = () => setCurrentPage(currentPage + 1);
+  const paginatePrev = () => {
+    if(currentPage != 1){
+      setCurrentPage(currentPage - 1);
+      setActiveLinkIndex(currentPage - 1);
+    }
+  }
+  const paginateNext = () => {
+    if(currentPage != pageNumbers.length){
+      setCurrentPage(currentPage + 1);
+      setActiveLinkIndex(currentPage + 1);
+    }
+  }
 
   return (
     <>
@@ -69,7 +80,7 @@ const Books = () => {
         </div>
       </section>
       <div className='catalog'>
-        <div className='container'> 
+        <div className='container'>
           <div className='row'>
             <div className='row' style={styles.container}>
               {currentBooks.map(book => (
@@ -79,7 +90,15 @@ const Books = () => {
                   key={book._id}
                 >
                   <div className='card__cover'>
-                    <img style={{height:'500px'}} src={(book.cover && 'http://localhost:5000' + book.cover)} alt='No Cover' />
+                    <img
+                      className='img-thumbnail rounded table__img'
+                      style={{height:'500px'}}
+                      src={
+                        (book.cover && 'http://localhost:5000/' + book.cover) ||
+                        defaultImage
+                      }
+                      alt='book'
+                    />
                     <Link to={'/books/' + book._id} className='card__play'>
                       <i className='icon ion-ios-eye'></i>
                     </Link>
@@ -121,7 +140,6 @@ const Books = () => {
                  onClick={e => {
                   e.preventDefault();
                   paginatePrev();
-                  setActiveLinkIndex(currentPage - 1);
                 }}
                  href="#"><i class="icon ion-ios-arrow-back"></i></a>
               </li>
@@ -151,7 +169,6 @@ const Books = () => {
                    onClick={e => {
                     e.preventDefault();
                     paginateNext();
-                    setActiveLinkIndex(currentPage + 1);
                   }}
                   href="#"><i class="icon ion-ios-arrow-forward"></i></a>
                 </li>

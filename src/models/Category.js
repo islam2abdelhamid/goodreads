@@ -20,6 +20,10 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
+categorySchema.post('deleteOne', { document: true }, function (next) {
+  console.log('removed');
+});
+
 const Category = mongoose.model('Category', categorySchema);
 
 module.exports = Category;

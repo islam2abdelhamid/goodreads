@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import GuestHome from '../pages/Guest/Home';
 import HomeAllBooks from '../pages/User/HomeAllBooks';
 
 import Search from '../pages/User/Search';

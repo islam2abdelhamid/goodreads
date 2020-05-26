@@ -8,7 +8,7 @@ export default ChildComponent => {
     return (
       <>
         {context.state.isLoaded && !context.state.isLogged && (
-          <Redirect to='/' />
+          <Redirect to='/login' />
         )}
 
         {context.state.isLoaded && context.state.isLogged && (

@@ -27,7 +27,6 @@ export const Reviews = ({ reviews, book, getReviews }) => {
         })
         .then(result => {
           setComment('');
-          setRate(0);
           setErrors([]);
           getReviews();
         })
@@ -65,7 +64,7 @@ export const Reviews = ({ reviews, book, getReviews }) => {
                     <div className='reviews'>
                       <ul className='reviews__list'>
                         {reviews.map(review => (
-                          <li className='reviews__item'>
+                          <li className='reviews__item' key={review._id}>
                             <div className='reviews__autor'>
                               <img
                                 className='reviews__avatar'

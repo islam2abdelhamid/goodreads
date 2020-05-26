@@ -4,6 +4,9 @@ import axios from '../../axios/logged';
 import { Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
+import defaultImage from './defaultImage.jpg';
+
+
 const DataList = (props) => {
     const [books, setBooks] = useState([]);
     const [choice, setChoice] = useState('');
@@ -114,11 +117,11 @@ const DataList = (props) => {
                 </thead>
                 <tbody>
                     {books.map((book, index) => (
-                        <tr key={book._id}>
+                        <tr key={book.book._id}>
                             <td className='align-middle text-light'>
                                 <img
                                     className='img-thumbnail rounded table__img'
-                                    src={(book.book.cover && 'http://localhost:5000' + book.book.cover)} />
+                                    src={(book.book.cover && 'http://localhost:5000' + book.book.cover || defaultImage)} alt="book cover"/>
                             </td>
                             <td className='align-middle editable text-light'>
                                 <Link to={'/books/' + book.book._id}>
