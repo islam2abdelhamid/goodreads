@@ -12,14 +12,14 @@ router.get('', userAuth, async (req, res, next) => {
 
     user = req.user;
 
-    userBooks = await user.books.map((b) => b = {id: b.bookId, status: b.status} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
+    userBooks = await user.books.map((b) => b = {id: b.bookId, status: b.status, rate:b.rate} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
     allBooksIDs = await user.books.map((b) => b.bookId);
     getBooks = await Book.find({ "_id": { "$in": allBooksIDs } }).populate('author').sort();
 
     books = []
     function getBooksWithStatus(getBooks, userBooks) {
       for (var i = 0; i < getBooks.length; i++) {
-        books.push({ book: getBooks[i], status: userBooks[i].status });
+        books.push({ book: getBooks[i], status: userBooks[i].status, rate:userBooks[i].rate });
       }
     }
 
@@ -38,14 +38,14 @@ router.get('/Currently', userAuth, async (req, res, next) => {
 
     user = req.user;
 
-    userBooks = await user.books.filter((b) => b.status == 0).map((b) => b = {id: b.bookId, status: b.status} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
+    userBooks = await user.books.filter((b) => b.status == 0).map((b) => b = {id: b.bookId, status: b.status, rate:b.rate} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
     allBooksIDs = await user.books.filter((b) => b.status == 0).map((b) => b.bookId);
     getBooks = await Book.find({ "_id": { "$in": allBooksIDs } }).populate('author').sort();
 
     books = []
     function getBooksWithStatus(getBooks, userBooks) {
       for (var i = 0; i < getBooks.length; i++) {
-        books.push({ book: getBooks[i], status: userBooks[i].status });
+        books.push({ book: getBooks[i], status: userBooks[i].status, rate:userBooks[i].rate });
       }
     }
 
@@ -66,14 +66,14 @@ router.get('/Read', userAuth, async (req, res, next) => {
 
     user = req.user;
 
-    userBooks = await user.books.filter((b) => b.status == 1).map((b) => b = {id: b.bookId, status: b.status} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
+    userBooks = await user.books.filter((b) => b.status == 1).map((b) => b = {id: b.bookId, status: b.status, rate:b.rate} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
     allBooksIDs = await user.books.filter((b) => b.status == 1).map((b) => b.bookId);
     getBooks = await Book.find({ "_id": { "$in": allBooksIDs } }).populate('author').sort();
 
     books = []
     function getBooksWithStatus(getBooks, userBooks) {
       for (var i = 0; i < getBooks.length; i++) {
-        books.push({ book: getBooks[i], status: userBooks[i].status });
+        books.push({ book: getBooks[i], status: userBooks[i].status, rate:userBooks[i].rate });
       }
     }
 
@@ -90,14 +90,14 @@ router.get('/Want', userAuth, async (req, res, next) => {
 
     user = req.user;
 
-    userBooks = await user.books.filter((b) => b.status == 2).map((b) => b = {id: b.bookId, status: b.status} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
+    userBooks = await user.books.filter((b) => b.status == 2).map((b) => b = {id: b.bookId, status: b.status, rate:b.rate} ).sort((a, b) => (a.id> b.id) ? 1 : -1)
     allBooksIDs = await user.books.filter((b) => b.status == 2).map((b) => b.bookId);
     getBooks = await Book.find({ "_id": { "$in": allBooksIDs } }).populate('author').sort();
 
     books = []
     function getBooksWithStatus(getBooks, userBooks) {
       for (var i = 0; i < getBooks.length; i++) {
-        books.push({ book: getBooks[i], status: userBooks[i].status });
+        books.push({ book: getBooks[i], status: userBooks[i].status, rate: userBooks[i].rate });
       }
     }
 

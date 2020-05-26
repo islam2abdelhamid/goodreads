@@ -118,7 +118,7 @@ const DataList = (props) => {
                             <td className='align-middle text-light'>
                                 <img
                                     className='img-thumbnail rounded table__img'
-                                    src={(book.cover && 'http://localhost:5000' + book.cover)} />
+                                    src={(book.book.cover && 'http://localhost:5000' + book.book.cover)} />
                             </td>
                             <td className='align-middle editable text-light'>
                                 <Link to={'/books/' + book.book._id}>
@@ -132,16 +132,16 @@ const DataList = (props) => {
                             </td>
                             <td className='align-middle text-light' >
                                 <span className='card__rate'>
-                                    <i className='icon ion-ios-star'></i> {book.book.rate || '0'}
+                                    <i className='icon ion-ios-star'></i> {book.book.rate}
                                 </span>
                             </td>
 
                             <td className='align-middle text-light' >
-                                {/* {book.rate ? book.book.rate : 0} */}
+                                {book.rate }
                                 {/* {book.status} */}
 
                                 <span className='card__rate'>
-                                    <i className='icon ion-ios-star'></i> {book.rate || '0'}
+                                    <i className='icon ion-ios-star'></i> {console.log(book) }
                                 </span>
                             </td>
 

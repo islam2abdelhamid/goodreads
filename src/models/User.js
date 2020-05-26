@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Book',
         },
+        rate: Number,
         status: Number, // 0 => [reading] , [1] => [read] , 2 => [want to read] //
       },
     ],
