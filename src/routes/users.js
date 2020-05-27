@@ -4,6 +4,7 @@ const imageUploader = require('../utils/imageUploader');
 
 const userController = require('../controllers/users');
 const userAuth = require('../middleware/userAuth');
+const User = require('../models/User');
 
 const router = new Router();
 
@@ -24,5 +25,33 @@ router.post(
     return res.status(400).send({ message: error.message });
   }
 );
+
+
+router.post('/:id', userAuth, async (req, res, next) => {
+    user = req.user;
+    if(user.isAdmin == true)
+    {
+      try {
+
+        const user = await User.findById(req.params.id)
+        
+        if (!user) {
+          return res.status(400).send({ message: 'User Not Found' });
+        }
+        user.isAdmin = true;
+        user.save();
+        return res.status(200).json(user);
+      } catch (error) {
+        next(error);
+      }
+    }
+    else
+    {
+      return res.status(400).send({ message: 'Not Allowed For You' });
+
+    }
+  
+  
+});
 
 module.exports = router;
