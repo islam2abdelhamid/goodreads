@@ -29,11 +29,15 @@
     float: right;
 }
 
-.pink-button:hover{
+.pink-button:hover , .close:hover{
     color: #fd424b;
     background-color:#f6a0c8;
 }
-.pink-button{
+.pink-button , .close{
     color:#f6a0c8;
     background-color:#924448;
+}
+
+.modal-content{
+    background-color: #343a40;
 }

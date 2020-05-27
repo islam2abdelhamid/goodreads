@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAdmin from '../../hocs/requireAdmin';
 import Modal from './Modal';
@@ -12,11 +12,6 @@ const Authors = () => {
   useEffect(() => {
     context.retrieveAuthors();
   }, []);
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const deletingAuthor = e => {
     let id = e.target.dataset.id;
@@ -52,15 +47,15 @@ const Authors = () => {
         type='button'
         onClick={() => {
           creation();
-          handleShow();
+          context.handleShow();
         }}
       ></i>
       <Modal
         type='author'
         creation={creation}
-        show={show}
-        handleClose={handleClose}
-        handleShow={handleShow}
+        show={context.show}
+        handleClose={context.handleClose}
+        handleShow={context.handleShow}
       />
 
       <h2 className='pink-text'>Authors</h2>
@@ -110,7 +105,7 @@ const Authors = () => {
                   className='fa fa-edit'
                   onClick={() => {
                     editing(author);
-                    handleShow();
+                    context.handleShow();
                   }}
                   title='edit'
                   data-toggle='modal'
