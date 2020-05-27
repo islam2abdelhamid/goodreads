@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAdmin from '../../hocs/requireAdmin';
 import Modal from './Modal';
@@ -7,11 +7,6 @@ import defaultImage from './defaultImage.jpg';
 
 const Books = () => {
   const context = useContext(AdminContext);
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   let index = 0;
   useEffect(() => {
@@ -39,8 +34,8 @@ const Books = () => {
     context.setBookObject({
       _id: book._id,
       name: book.name,
-      author: book.author._id,
-      category: book.category._id,
+      author: book.author && book.author._id || -1,
+      category: book.category && book.category._id || -1,
     });
     context.setOperation('edit');
   };
@@ -53,15 +48,15 @@ const Books = () => {
         type='button'
         onClick={() => {
           creation();
-          handleShow();
+          context.handleShow();
         }}
       ></i>
       <Modal
         type='book'
         creation={creation}
-        show={show}
-        handleClose={handleClose}
-        handleShow={handleShow}
+        show={context.show}
+        handleClose={context.handleClose}
+        handleShow={context.handleShow}
       />
 
       <h2 className='pink-text'>Books</h2>
@@ -96,18 +91,16 @@ const Books = () => {
                   alt='book'
                 />
               </td>
-              {book.category && (
-                <td className='align-middle text-light'>
-                  {book.category.name}
-                </td>
-              )}
-              <td className='align-middle text-light'>{`${book.author.firstName} ${book.author.lastName}`}</td>
+              <td className='align-middle text-light'>
+                {(book.category && book.category.name) || <p style={{color: 'red'}}>UnCategorized</p>}
+              </td>
+              <td className='align-middle text-light'>{(book.author && `${book.author.firstName} ${book.author.lastName}`) || <p style={{color: 'red'}}>Author is not available</p>}</td>
               <td className='align-middle text-light' data-id={book._id}>
                 <i
                   className='fa fa-edit'
                   onClick={() => {
                     editing(book);
-                    handleShow();
+                    context.handleShow();
                   }}
                   title='edit'
                   data-toggle='modal'

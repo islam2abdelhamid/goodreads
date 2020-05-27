@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAdmin from '../../hocs/requireAdmin';
 import Modal from './Modal';
@@ -9,10 +9,6 @@ const Categories = () => {
 
   let index = 0;
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   useEffect(() => {
     context.retrieveCategories();
   }, []);
@@ -47,15 +43,15 @@ const Categories = () => {
         type='button'
         onClick={() => {
           creation();
-          handleShow();
+          context.handleShow();
         }}
       ></i>
       <Modal
         type='category'
         creation={creation}
-        show={show}
-        handleClose={handleClose}
-        handleShow={handleShow}
+        show={context.show}
+        handleClose={context.handleClose}
+        handleShow={context.handleShow}
       />
 
       <h2 className='pink-text'>Categories</h2>
@@ -84,7 +80,7 @@ const Categories = () => {
                   data-target='#exampleModalCenter'
                   onClick={() => {
                     editing(cat);
-                    handleShow();
+                    context.handleShow();
                   }}
                   title='edit'
                 ></i>

@@ -10,6 +10,10 @@ const AdminContextProvider = (props) => {
     const [authors, setAuthors] = useState([]);
     const [categories, setCategories] = useState([]);
     const [books, setBooks] = useState([]);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const retrieveBooks = ()=>{
         axios
@@ -47,7 +51,7 @@ const AdminContextProvider = (props) => {
           {{ 
             books, setBooks, authors, setAuthors, categories, setCategories, categoryObject,
             setCategoryObject, bookObject, setBookObject, operation, setOperation, retrieveBooks,
-            retrieveAuthors, retrieveCategories, authorObject, setAuthorObject
+            retrieveAuthors, retrieveCategories, authorObject, setAuthorObject, handleClose, handleShow, show
           }}
         >
           {props.children}

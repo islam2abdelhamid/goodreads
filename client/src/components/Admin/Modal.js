@@ -152,18 +152,9 @@ const Modal = props => {
 
   return (
     <>
-      {/* <i
-        className='fas fa-plus-circle mb-3'
-        title={'create new ' + props.type}
-        type='button'
-        onClick={() => {
-          handleShow();
-          props.creation();
-        }}
-      ></i> */}
-      <BootstrapModal show={props.show} onHide={props.handleClose}>
-        <BootstrapModal.Header closeButton>
-          <BootstrapModal.Title>
+      <BootstrapModal show={props.show} onHide={props.handleClose} centered={true}>
+        <BootstrapModal.Header closeButton >
+          <BootstrapModal.Title className='pink-text'>
             {' '}
             {(context.operation == 'edit' && 'Edit') || 'Create'} {props.type}
           </BootstrapModal.Title>
