@@ -46,6 +46,35 @@ router.get('/top_books', async (req, res, next) => {
   }
 });
 
+
+
+
+router.get('/:userID/:bookID', userAuth, async (req, res, next) => {
+  console.log(req.params.userID)
+  if (req.params.userID == req.user._id) {
+    const book = req.user.books.find(book => {
+      return String(book.bookId) === String(req.params.bookID);
+    });
+    if (book) {
+      return res
+        .status(200)
+        .send({ message: `book rate is ${book.rate}` });
+    }
+    else {
+
+      return res
+        .status(201)
+        .send({ message: `book not exist` });
+    }
+  }
+  else {
+    res.status(500).send("Not Allowed");
+  }
+
+});
+
+
+
 router.get('/:id', userAuth, async (req, res, next) => {
   try {
     const book = await Book.findById(req.params.id)
@@ -189,5 +218,7 @@ router.patch('/:id/change-status', userAuth, async (req, res, next) => {
     res.status(500).send(error);
   }
 });
+
+
 
 module.exports = router;
