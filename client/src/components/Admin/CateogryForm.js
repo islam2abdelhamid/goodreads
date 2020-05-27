@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import axios from '../../axios';
+import React, { useContext } from 'react';
 import AdminContext from '../../context/AdminContext/AdminContext'
 
 const CategoryForm = (props) => {

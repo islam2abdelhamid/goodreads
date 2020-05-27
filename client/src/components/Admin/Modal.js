@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext } from 'react';
 import { Modal as BootstrapModal } from 'react-bootstrap';
 
 import axios from '../../axios/logged';
@@ -38,9 +38,7 @@ const Modal = props => {
     const category = form.category.value;
     const cover = form.cover.files[0];
 
-    if (category == -1 || author == -1) {
-      console.log('hi there');
-
+    if (category === '-1' || author === '-1') {
       alert('you must choose author and cateogry for the book!');
       return;
     }
@@ -156,7 +154,7 @@ const Modal = props => {
         <BootstrapModal.Header closeButton >
           <BootstrapModal.Title className='pink-text'>
             {' '}
-            {(context.operation == 'edit' && 'Edit') || 'Create'} {props.type}
+            {(context.operation === 'edit' && 'Edit') || 'Create'} {props.type}
           </BootstrapModal.Title>
         </BootstrapModal.Header>
 
@@ -180,7 +178,7 @@ const Modal = props => {
                 Cancel
               </button>
               <button type='submit' className='btn pink-text pink-button'>
-                {(context.operation == 'edit' && 'Edit') || 'Create'}
+                {(context.operation === 'edit' && 'Edit') || 'Create'}
               </button>
             </BootstrapModal.Footer>
           </form>{' '}

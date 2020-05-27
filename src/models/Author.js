@@ -44,6 +44,14 @@ const authorSchema = new mongoose.Schema(
   }
 );
 
+authorSchema.post("remove", document => {
+  const { Book } = require('./Book');
+  const authorId = document._id;
+  Book.find({ author: authorId}).then(books => {
+    Promise.all(books.map(b => b.remove()));
+  });
+});
+
 const Author = mongoose.model('Author', authorSchema);
 
 module.exports = Author;

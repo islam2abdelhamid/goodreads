@@ -98,9 +98,9 @@ router.patch('/:id/update-avatar', adminAuth, upload.single('avatar'), async (re
 
 router.delete('/:id', adminAuth, async (req, res, next) => {
   try {
-    await Author.findByIdAndDelete(req.params.id);
+    author = await Author.findById(req.params.id);
+    author.remove();
     res.status(200).send('Author has been deleted successfully');
-    next();
   } catch (error) {
     next(error);
   }

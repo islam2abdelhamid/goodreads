@@ -87,7 +87,8 @@ router.post('/', adminAuth, async (req, res, next) => {
 
 router.delete('/:id', adminAuth, async (req, res, next) => {
   try {
-    await Category.findByIdAndDelete(req.params.id);
+    cat = await Category.findById(req.params.id);
+    cat.remove();
     res.status(200).send('category has been deleted successfully');
   } catch (error) {
     next(error);
