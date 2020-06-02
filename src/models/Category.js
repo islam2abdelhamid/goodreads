@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Book } = require('../models/Book');
 
 const categorySchema = new mongoose.Schema(
   {
@@ -20,8 +19,12 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
-categorySchema.post('deleteOne', { document: true }, function (next) {
-  console.log('removed');
+categorySchema.post("remove", document => {
+  const { Book } = require('./Book');
+  const catId = document._id;
+  Book.find({ category: catId}).then(books => {
+    Promise.all(books.map(b => b.remove()));
+  });
 });
 
 const Category = mongoose.model('Category', categorySchema);

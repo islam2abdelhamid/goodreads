@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAdmin from '../../hocs/requireAdmin';
 import Modal from './Modal';
@@ -11,7 +11,7 @@ const Books = () => {
   let index = 0;
   useEffect(() => {
     context.retrieveBooks();
-  }, []);
+  });
 
   const deletingBook = e => {
     let id = e.target.dataset.id;
@@ -34,8 +34,8 @@ const Books = () => {
     context.setBookObject({
       _id: book._id,
       name: book.name,
-      author: book.author && book.author._id || -1,
-      category: book.category && book.category._id || -1,
+      author: (book.author && book.author._id) || -1,
+      category: (book.category && book.category._id) || -1,
     });
     context.setOperation('edit');
   };

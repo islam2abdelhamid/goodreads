@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from '../../axios/logged';
 import requireAdmin from '../../hocs/requireAdmin';
 import Modal from './Modal';
@@ -11,7 +11,7 @@ const Categories = () => {
 
   useEffect(() => {
     context.retrieveCategories();
-  }, []);
+  });
 
   const deletingCat = e => {
     let id = e.target.dataset.id;

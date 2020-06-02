@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import axios from '../../axios/logged';
+import React, { useContext, useEffect } from 'react';
 import AdminContext from '../../context/AdminContext/AdminContext'
 
 const BookForm = (props) => {
@@ -8,7 +7,7 @@ const BookForm = (props) => {
   useEffect(() => {
     context.retrieveAuthors();
     context.retrieveCategories();
-    }, [])
+    })
 
 
   const handlingChange = (e)=>{
