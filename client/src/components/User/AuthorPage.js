@@ -21,7 +21,6 @@ const AuthorPage = props => {
       })
       .then(result => {
         setAuthor(author.concat(result.data));
-        // console.log(result.data);
       })
       .catch(err => {
         console.log(err);
@@ -33,7 +32,6 @@ const AuthorPage = props => {
   const notify = () => toast(book.name + ' Book Status Changed To : ' + bookStatus.status);
   
   useEffect(() => {
-    console.log(bookStatus);
     if (bookStatus.code !== -1) {
       axios
       .patch('books/' + book._id + '/change-status', {
@@ -42,8 +40,6 @@ const AuthorPage = props => {
       .then(result => {
         notify();
       });
-      console.log(book);
-      console.log(book.status)
     }
   }, [bookStatus]);
 

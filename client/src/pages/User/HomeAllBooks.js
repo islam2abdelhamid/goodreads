@@ -17,7 +17,6 @@ const Home = props => {
       .then(res => {
         setBooks(res.data.books);
         setType(res.data.type);
-        // console.log(res.data);
       });
   }, [setBooks, setType]);
 

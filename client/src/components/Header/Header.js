@@ -2,23 +2,21 @@ import React, { useContext, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import defaultAvatar from './default.png';
 export const Header = ({ isAdmin, isLoaded, user }) => {
-
   const [searchInput, setSearchInput] = useState('');
 
   const handleSearchInput = e => {
     setSearchInput(e.target.value);
   };
 
-  function handleClick(e) {    
-    e.preventDefault();    
-    window.location.assign('/search/?q='+searchInput);
-    // console.log('The link was clicked.'); 
-   }
+  function handleClick(e) {
+    e.preventDefault();
+    window.location.assign('/search/?q=' + searchInput);
+  }
 
   return (
     <header className='header'>
       <div className='header__wrap'>
-        <div className='container'>
+        <div className='container-fluid'>
           <div className='row'>
             <div className='col-12'>
               <div className='header__content'>
@@ -42,21 +40,21 @@ export const Header = ({ isAdmin, isLoaded, user }) => {
                   {user && (
                     <li className='header__nav-item'>
                       <NavLink className='header__nav-link' to='/books'>
-                      Books
+                        Books
                       </NavLink>
                     </li>
                   )}
                   {user && (
                     <li className='header__nav-item'>
                       <NavLink className='header__nav-link' to='/categories'>
-                      Categories
+                        Categories
                       </NavLink>
                     </li>
                   )}
-                   {user && (
+                  {user && (
                     <li className='header__nav-item'>
                       <NavLink className='header__nav-link' to='/authors'>
-                      Authors
+                        Authors
                       </NavLink>
                     </li>
                   )}
@@ -130,7 +128,9 @@ export const Header = ({ isAdmin, isLoaded, user }) => {
                   placeholder="Search for a book using book's name or book's author"
                   onChange={handleSearchInput}
                 />
-                <button type='button' onClick={handleClick}>search</button>
+                <button type='button' onClick={handleClick}>
+                  search
+                </button>
               </div>
             </div>
           </div>

@@ -11,7 +11,7 @@ const Books = () => {
   let index = 0;
   useEffect(() => {
     context.retrieveBooks();
-  });
+  },[]);
 
   const deletingBook = e => {
     let id = e.target.dataset.id;

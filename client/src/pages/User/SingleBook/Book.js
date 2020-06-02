@@ -10,7 +10,6 @@ export const Book = ({ book }) => {
   const notify = () => toast('Status Changed !');
 
   useEffect(() => {
-    console.log(bookStatus);
     if (bookStatus.code !== -1) {
       loggedAxios
         .patch('books/' + book._id + '/change-status', {

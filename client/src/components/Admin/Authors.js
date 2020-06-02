@@ -11,7 +11,7 @@ const Authors = () => {
   let index = 0;
   useEffect(() => {
     context.retrieveAuthors();
-  });
+  },[]);
 
   const deletingAuthor = e => {
     let id = e.target.dataset.id;

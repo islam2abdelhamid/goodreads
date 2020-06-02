@@ -22,7 +22,8 @@ const SingleBook = props => {
         setReviews(result.data);
       })
       .catch(err => {
-        props.history.push('/404');
+        setReviews([]);
+        console.log(err);
       });
   };
   return (

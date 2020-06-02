@@ -7,7 +7,6 @@ const Home = props => {
   const [books, setBooks] = useState([]);
   const [type, setType] = useState([]);
 
-  // console.log("props  "+props.location.search)
   useEffect(() => {
      axios
       .get("http://localhost:5000/Search?q="+props.location.search.split("=")[1], {
@@ -19,7 +18,6 @@ const Home = props => {
       .then((res) => {
         setBooks(res.data.books);
         setType(res.data.type);
-        // console.log(res.data);
       });
   }, [setBooks,setType]);
 

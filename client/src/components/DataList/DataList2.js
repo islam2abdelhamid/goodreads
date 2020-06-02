@@ -13,7 +13,6 @@ const DataList = (props) => {
 
 
     const handleChangeListing = (e) => {
-        // console.log(e.target.value + " hihihi " + e.target.id)
         window.location.replace(`http://localhost:5001/${e.target.value}`);
     }
 

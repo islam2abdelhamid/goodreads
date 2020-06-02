@@ -50,7 +50,6 @@ router.get('/top_books', async (req, res, next) => {
 
 
 router.get('/:userID/:bookID', userAuth, async (req, res, next) => {
-  console.log(req.params.userID)
   if (req.params.userID == req.user._id) {
     const book = req.user.books.find(book => {
       return String(book.bookId) === String(req.params.bookID);
@@ -195,8 +194,7 @@ router.patch('/:id/change-status', userAuth, async (req, res, next) => {
     return String(book.bookId) === String(req.params.id);
   });
 
-  // console.log("boo3kss"+book);
-  // console.log("status   "+ req.body.status);
+
 
   if (!book) {
     req.user.books.push({

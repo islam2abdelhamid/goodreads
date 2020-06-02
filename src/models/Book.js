@@ -54,7 +54,6 @@ bookSchema.methods.getReviews = async function () {
   const reviews = await Review.find({ bookId: book._id })
     .populate('userId')
     .populate('bookId');
-  console.log(reviews);
   return reviews;
 };
 
