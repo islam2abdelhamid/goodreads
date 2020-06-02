@@ -75,10 +75,7 @@ export const Reviews = ({ reviews, book, getReviews }) => {
                                 {review.bookId.name}
                               </span>
                               <span className='reviews__time'>
-                                {moment(review.createdAt)
-                                  .startOf('hour')
-                                  .fromNow()}{' '}
-                                by{' '}
+                                {moment(review.createdAt).fromNow()} by{' '}
                                 {review.userId.firstName +
                                   ' ' +
                                   review.userId.lastName}
