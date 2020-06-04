@@ -11,7 +11,7 @@ const Categories = () => {
 
   useEffect(() => {
     context.retrieveCategories();
-  });
+  }, []);
 
   const deletingCat = e => {
     let id = e.target.dataset.id;

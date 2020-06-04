@@ -7,7 +7,7 @@ const BookForm = (props) => {
   useEffect(() => {
     context.retrieveAuthors();
     context.retrieveCategories();
-    })
+    }, [])
 
 
   const handlingChange = (e)=>{
